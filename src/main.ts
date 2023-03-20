@@ -51,11 +51,6 @@ export class LeagueLobsterTextReminder extends Stack {
               actions: ["sts:AssumeRole"],
               resources: [`arn:aws:iam::${this.account}:role/cdk-*`],
             }),
-            new PolicyStatement({
-              effect: Effect.ALLOW,
-              actions: ["cloudformation:DescribeStacks"],
-              resources: ["*"],
-            }),
           ],
         }),
       },
