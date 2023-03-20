@@ -1,11 +1,62 @@
-import { App, Stack, StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
+import { App, Stack, StackProps } from "aws-cdk-lib";
+import {
+  Effect,
+  OpenIdConnectProvider,
+  PolicyDocument,
+  PolicyStatement,
+  Role,
+  WebIdentityPrincipal,
+} from "aws-cdk-lib/aws-iam";
+import { Runtime } from "aws-cdk-lib/aws-lambda";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { Construct } from "constructs";
 
-export class MyStack extends Stack {
+export class LeagueLobsterTextReminder extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
-    // define resources here...
+    const handler = new NodejsFunction(this, "GetGamesFunction", {
+      runtime: Runtime.NODEJS_18_X,
+    });
+
+    console.log(handler);
+
+    const githubProvider = new OpenIdConnectProvider(
+      this,
+      "GithubOIDCProvider",
+      {
+        url: "https://token.actions.githubusercontent.com",
+        clientIds: ["sts.amazonaws.com"],
+      }
+    );
+
+    const deployRole = new Role(this, "GithubDeployRole", {
+      assumedBy: new WebIdentityPrincipal(
+        githubProvider.openIdConnectProviderArn,
+        {
+          StringEquals: {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub":
+              "repo:michael-lowe-nz/league-lobster-text-reminders:ref:refs/heads/main",
+          },
+        }
+      ),
+      description: "Role to be used by Github actions",
+      inlinePolicies: {
+        CdkDeploymentPolicy: new PolicyDocument({
+          assignSids: true,
+          statements: [
+            new PolicyStatement({
+              effect: Effect.ALLOW,
+              actions: ["sts:AssumeRole"],
+              resources: [`arn:aws:iam::${this.account}:role/cdk-*`],
+            }),
+          ],
+        }),
+      },
+    });
+
+    console.log(deployRole);
   }
 }
 
@@ -17,7 +68,9 @@ const devEnv = {
 
 const app = new App();
 
-new MyStack(app, 'league-lobster-text-reminders-dev', { env: devEnv });
-// new MyStack(app, 'league-lobster-text-reminders-prod', { env: prodEnv });
+new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
+  env: devEnv,
+});
+// new LeagueLobsterTextReminder(app, 'league-lobster-text-reminders-prod', { env: prodEnv });
 
 app.synth();
