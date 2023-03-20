@@ -17,7 +17,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::825411367293:role/league-lobster-text-remin-GithubDeployRoleB0CF66A5-1GS0896LF6NVW
-          aws-region: eu-west-1
+          aws-region: ap-southeast-2
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
