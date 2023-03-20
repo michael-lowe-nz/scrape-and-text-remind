@@ -19,10 +19,6 @@ export class LeagueLobsterTextReminder extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
-    new NodejsFunction(this, "GetGamesFunction", {
-      runtime: Runtime.NODEJS_18_X,
-    });
-
     const githubProvider = new OpenIdConnectProvider(
       this,
       "GithubOIDCProvider",
@@ -63,8 +59,19 @@ export class LeagueLobsterTextReminder extends Stack {
     contacts.teams.forEach((team: any) => {
       console.log("TEAM:", team.Name);
       const teamTopic = new Topic(this, `${team.Name}Alerts`);
+      const teamAlertFunction = new NodejsFunction(
+        this,
+        `Alert${team.Name}Function`,
+        {
+          runtime: Runtime.NODEJS_18_X,
+          entry: "./src/main.GetGamesFunction.ts",
+          environment: {
+            SNS_TOPIC_ARN: teamTopic.topicArn,
+          },
+        }
+      );
+      teamTopic.grantPublish(teamAlertFunction);
       team.Players.forEach((player: any) => {
-        console.log("PLAYER:", player);
         teamTopic.addSubscription(new SmsSubscription(player.Number));
       });
     });
