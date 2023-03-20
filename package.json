@@ -24,11 +24,13 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.0",
+    "@types/js-yaml": "^4.0.5",
     "@types/node": "^14",
     "aws-cdk": "^2.1.0",
     "esbuild": "^0.17.12",
     "jest": "^29.5.0",
     "jest-junit": "^13",
+    "js-yaml": "^4.1.0",
     "npm-check-updates": "^16",
     "projen": "^0.68.14",
     "ts-jest": "^29.0.5",
