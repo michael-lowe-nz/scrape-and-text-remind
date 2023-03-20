@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.0",
-    "@types/js-yaml": "^4.0.5",
+    "@types/js-yaml": "*",
     "@types/node": "^14",
     "aws-cdk": "^2.1.0",
     "esbuild": "^0.17.12",
@@ -38,7 +38,6 @@
     "typescript": "^5.0.2"
   },
   "dependencies": {
-    "@aws-sdk/client-sns": "^3.294.0",
     "aws-cdk-lib": "^2.1.0",
     "constructs": "^10.0.5"
   },
