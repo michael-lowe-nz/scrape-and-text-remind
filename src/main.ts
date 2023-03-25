@@ -88,6 +88,9 @@ const app = new App();
 new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
   env: devEnv,
 });
-// new LeagueLobsterTextReminder(app, 'league-lobster-text-reminders-prod', { env: prodEnv });
+
+new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-prod", {
+  env: devEnv,
+});
 
 app.synth();
