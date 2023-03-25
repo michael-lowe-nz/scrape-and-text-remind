@@ -57,7 +57,6 @@ export class LeagueLobsterTextReminder extends Stack {
     const data = readFileSync("./src/contacts.yml", "utf-8");
     const contacts: any = load(data);
     contacts.teams.forEach((team: any) => {
-      console.log("TEAM:", team.Name);
       const teamTopic = new Topic(this, `${team.Name}Alerts`);
       const teamAlertFunction = new NodejsFunction(
         this,
