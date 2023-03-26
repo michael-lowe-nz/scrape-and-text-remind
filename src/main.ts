@@ -15,10 +15,9 @@ import { Construct } from "constructs";
 import { readFileSync } from "fs";
 import { load } from "js-yaml";
 
-export class LeagueLobsterTextReminder extends Stack {
+export class OIDCSetup extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
-
     const githubProvider = new OpenIdConnectProvider(
       this,
       "GithubOIDCProvider",
@@ -53,6 +52,12 @@ export class LeagueLobsterTextReminder extends Stack {
         }),
       },
     });
+  }
+}
+
+export class LeagueLobsterTextReminder extends Stack {
+  constructor(scope: Construct, id: string, props: StackProps = {}) {
+    super(scope, id, props);
 
     const data = readFileSync("./src/contacts.yml", "utf-8");
     const contacts: any = load(data);
@@ -84,6 +89,8 @@ const devEnv = {
 };
 
 const app = new App();
+
+new OIDCSetup(app, "oidc-setup", { env: devEnv });
 
 new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
   env: devEnv,
