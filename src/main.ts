@@ -96,8 +96,10 @@ new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
   env: devEnv,
 });
 
-new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-prod", {
-  env: devEnv,
-});
+if (process.env.NODE_ENV === "ci") {
+  new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-prod", {
+    env: devEnv,
+  });
+}
 
 app.synth();
