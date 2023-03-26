@@ -1862,8 +1862,11 @@ const getRandomEmoji = () => {
 
 exports.handler = async () => {
   const client = new SNSClient({});
+  const date = new Date();
   const params = {
-    Message: `Kia ora team 🏀${getRandomEmoji()}${getRandomEmoji()}${getRandomEmoji()}🏀`,
+    Message: `Kia ora team 🏀${getRandomEmoji()}${getRandomEmoji()}${getRandomEmoji()}🏀
+    The next game will be at ${date.toUTCString()}
+    `,
     TopicArn: process.env.SNS_TOPIC_ARN,
   };
   const response = await client.send(new PublishCommand(params));
