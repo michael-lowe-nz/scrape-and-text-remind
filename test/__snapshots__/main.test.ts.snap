@@ -180,9 +180,9 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::IAM::Policy",
     },
-    "CraigsTeamAlerts642721200480F6EEA01": {
+    "CraigsTeamAlerts64272120047F58FE95F": {
       "Properties": {
-        "Endpoint": "+64272120048",
+        "Endpoint": "+64272120047",
         "Protocol": "sms",
         "TopicArn": {
           "Ref": "CraigsTeamAlertsC315D126",
