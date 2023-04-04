@@ -10,6 +10,91 @@ exports[`Snapshot 1`] = `
     },
   },
   "Resources": {
+    "AlertCraigsTeamFunction2C3A9D82": {
+      "DependsOn": [
+        "AlertCraigsTeamFunctionServiceRoleDefaultPolicy66A0C00B",
+        "AlertCraigsTeamFunctionServiceRoleAE26B734",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "2a64b3343a06bfefa641409c1d8dced4de39295ff7b4630ee0cac338e3fe8175.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "SNS_TOPIC_ARN": {
+              "Ref": "CraigsTeamAlertsC315D126",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "AlertCraigsTeamFunctionServiceRoleAE26B734",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AlertCraigsTeamFunctionServiceRoleAE26B734": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "AlertCraigsTeamFunctionServiceRoleDefaultPolicy66A0C00B": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "CraigsTeamAlertsC315D126",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AlertCraigsTeamFunctionServiceRoleDefaultPolicy66A0C00B",
+        "Roles": [
+          {
+            "Ref": "AlertCraigsTeamFunctionServiceRoleAE26B734",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
     "AlertGenXFunction8E4EBA9D": {
       "DependsOn": [
         "AlertGenXFunctionServiceRoleDefaultPolicyA13E1C0D",
@@ -20,7 +105,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "7942a4eb3ac4aa3ae289e43d72b251ca28b95a69210545b66afa81e009f46ae9.zip",
+          "S3Key": "2a64b3343a06bfefa641409c1d8dced4de39295ff7b4630ee0cac338e3fe8175.zip",
         },
         "Environment": {
           "Variables": {
@@ -94,6 +179,19 @@ exports[`Snapshot 1`] = `
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "CraigsTeamAlerts64272120047F58FE95F": {
+      "Properties": {
+        "Endpoint": "+64272120047",
+        "Protocol": "sms",
+        "TopicArn": {
+          "Ref": "CraigsTeamAlertsC315D126",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
+    "CraigsTeamAlertsC315D126": {
+      "Type": "AWS::SNS::Topic",
     },
     "GenXAlerts64272120047942F64BD": {
       "Properties": {
