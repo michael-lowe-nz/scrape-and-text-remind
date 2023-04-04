@@ -14,6 +14,7 @@ import { SmsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
 import { readFileSync } from "fs";
 import { load } from "js-yaml";
+import { Team } from "./types";
 
 export class OIDCSetup extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
@@ -61,7 +62,8 @@ export class LeagueLobsterTextReminder extends Stack {
 
     const data = readFileSync("./src/contacts.yml", "utf-8");
     const contacts: any = load(data);
-    contacts.teams.forEach((team: any) => {
+
+    contacts.teams.forEach((team: Team) => {
       const teamTopic = new Topic(this, `${team.Name}Alerts`);
       const teamAlertFunction = new NodejsFunction(
         this,
@@ -90,16 +92,14 @@ const devEnv = {
 
 const app = new App();
 
-
 /**
  * This is what happens when you run a local synth without specifying a NODE_ENV
-*/
+ */
 if (!process.env.NODE_ENV) {
   new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
     env: devEnv,
   });
 }
-
 
 if (process.env.NODE_ENV === "ci") {
   new OIDCSetup(app, "oidc-setup", { env: devEnv });
