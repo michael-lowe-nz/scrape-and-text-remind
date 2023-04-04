@@ -90,13 +90,19 @@ const devEnv = {
 
 const app = new App();
 
-new OIDCSetup(app, "oidc-setup", { env: devEnv });
 
-new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
-  env: devEnv,
-});
+/**
+ * This is what happens when you run a local synth without specifying a NODE_ENV
+*/
+if (!process.env.NODE_ENV) {
+  new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
+    env: devEnv,
+  });
+}
+
 
 if (process.env.NODE_ENV === "ci") {
+  new OIDCSetup(app, "oidc-setup", { env: devEnv });
   new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-prod", {
     env: devEnv,
   });
