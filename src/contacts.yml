@@ -4,3 +4,7 @@ teams:
     Players:
       - Name: Michael
         Number: "+64272120047"
+  - Name: "Craig's Team"
+    Players:
+      - Name: "Craig"
+        Number: "+64272120048"
