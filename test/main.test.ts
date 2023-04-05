@@ -37,6 +37,10 @@ test("Test that the stack builds an SNS topic with the right number of subscribe
   expect(template.resourceCountIs("AWS::SNS::Subscription", numberOfContacts));
 });
 
+test("A test that fails, to see if anything happens", () => {
+  expect(false).toBeTruthy();
+});
+
 /**
  * I realised halfway through that a test like this would need a contacts list to be fed
  * into the stack as a prop. i.e. the stack always goes and creates its own thing
