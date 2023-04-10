@@ -1,12 +1,5 @@
 import { App, Stack, StackProps } from "aws-cdk-lib";
-import {
-  Effect,
-  OpenIdConnectProvider,
-  PolicyDocument,
-  PolicyStatement,
-  Role,
-  WebIdentityPrincipal,
-} from "aws-cdk-lib/aws-iam";
+import { OIDCSetup } from "./lib/stacks/oidcSetup";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Topic } from "aws-cdk-lib/aws-sns";
@@ -15,46 +8,6 @@ import { Construct } from "constructs";
 import { readFileSync } from "fs";
 import { load } from "js-yaml";
 import { Team } from "./types";
-
-export class OIDCSetup extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps = {}) {
-    super(scope, id, props);
-    const githubProvider = new OpenIdConnectProvider(
-      this,
-      "GithubOIDCProvider",
-      {
-        url: "https://token.actions.githubusercontent.com",
-        clientIds: ["sts.amazonaws.com"],
-      }
-    );
-
-    new Role(this, "GithubDeployRole", {
-      assumedBy: new WebIdentityPrincipal(
-        githubProvider.openIdConnectProviderArn,
-        {
-          StringEquals: {
-            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-            "token.actions.githubusercontent.com:sub":
-              "repo:michael-lowe-nz/league-lobster-text-reminders:ref:refs/heads/main",
-          },
-        }
-      ),
-      description: "Role to be used by Github actions",
-      inlinePolicies: {
-        CdkDeploymentPolicy: new PolicyDocument({
-          assignSids: true,
-          statements: [
-            new PolicyStatement({
-              effect: Effect.ALLOW,
-              actions: ["sts:AssumeRole"],
-              resources: [`arn:aws:iam::${this.account}:role/cdk-*`],
-            }),
-          ],
-        }),
-      },
-    });
-  }
-}
 
 export class LeagueLobsterTextReminder extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
