@@ -10,10 +10,10 @@ exports[`Snapshot 1`] = `
     },
   },
   "Resources": {
-    "AlertCraigsTeamFunction2C3A9D82": {
+    "AlertTestTeam2Function6D2517FA": {
       "DependsOn": [
-        "AlertCraigsTeamFunctionServiceRoleDefaultPolicy66A0C00B",
-        "AlertCraigsTeamFunctionServiceRoleAE26B734",
+        "AlertTestTeam2FunctionServiceRoleDefaultPolicyF77B6850",
+        "AlertTestTeam2FunctionServiceRoleEA0E27EA",
       ],
       "Properties": {
         "Code": {
@@ -26,14 +26,14 @@ exports[`Snapshot 1`] = `
           "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
             "SNS_TOPIC_ARN": {
-              "Ref": "CraigsTeamAlertsC315D126",
+              "Ref": "TestTeam2Alerts2BE53530",
             },
           },
         },
         "Handler": "index.handler",
         "Role": {
           "Fn::GetAtt": [
-            "AlertCraigsTeamFunctionServiceRoleAE26B734",
+            "AlertTestTeam2FunctionServiceRoleEA0E27EA",
             "Arn",
           ],
         },
@@ -41,7 +41,30 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
-    "AlertCraigsTeamFunctionServiceRoleAE26B734": {
+    "AlertTestTeam2FunctionServiceRoleDefaultPolicyF77B6850": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "TestTeam2Alerts2BE53530",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AlertTestTeam2FunctionServiceRoleDefaultPolicyF77B6850",
+        "Roles": [
+          {
+            "Ref": "AlertTestTeam2FunctionServiceRoleEA0E27EA",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "AlertTestTeam2FunctionServiceRoleEA0E27EA": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -72,33 +95,10 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "AlertCraigsTeamFunctionServiceRoleDefaultPolicy66A0C00B": {
-      "Properties": {
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": "sns:Publish",
-              "Effect": "Allow",
-              "Resource": {
-                "Ref": "CraigsTeamAlertsC315D126",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "AlertCraigsTeamFunctionServiceRoleDefaultPolicy66A0C00B",
-        "Roles": [
-          {
-            "Ref": "AlertCraigsTeamFunctionServiceRoleAE26B734",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "AlertGenXFunction8E4EBA9D": {
+    "AlertTestTeamFunction3257EF79": {
       "DependsOn": [
-        "AlertGenXFunctionServiceRoleDefaultPolicyA13E1C0D",
-        "AlertGenXFunctionServiceRoleB426A703",
+        "AlertTestTeamFunctionServiceRoleDefaultPolicy918B5A1B",
+        "AlertTestTeamFunctionServiceRole496082A0",
       ],
       "Properties": {
         "Code": {
@@ -111,14 +111,14 @@ exports[`Snapshot 1`] = `
           "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
             "SNS_TOPIC_ARN": {
-              "Ref": "GenXAlerts8EC27B99",
+              "Ref": "TestTeamAlerts58363266",
             },
           },
         },
         "Handler": "index.handler",
         "Role": {
           "Fn::GetAtt": [
-            "AlertGenXFunctionServiceRoleB426A703",
+            "AlertTestTeamFunctionServiceRole496082A0",
             "Arn",
           ],
         },
@@ -126,7 +126,7 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
-    "AlertGenXFunctionServiceRoleB426A703": {
+    "AlertTestTeamFunctionServiceRole496082A0": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -157,7 +157,7 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "AlertGenXFunctionServiceRoleDefaultPolicyA13E1C0D": {
+    "AlertTestTeamFunctionServiceRoleDefaultPolicy918B5A1B": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -165,45 +165,65 @@ exports[`Snapshot 1`] = `
               "Action": "sns:Publish",
               "Effect": "Allow",
               "Resource": {
-                "Ref": "GenXAlerts8EC27B99",
+                "Ref": "TestTeamAlerts58363266",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "AlertGenXFunctionServiceRoleDefaultPolicyA13E1C0D",
+        "PolicyName": "AlertTestTeamFunctionServiceRoleDefaultPolicy918B5A1B",
         "Roles": [
           {
-            "Ref": "AlertGenXFunctionServiceRoleB426A703",
+            "Ref": "AlertTestTeamFunctionServiceRole496082A0",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "CraigsTeamAlerts64272120047F58FE95F": {
-      "Properties": {
-        "Endpoint": "+64272120047",
-        "Protocol": "sms",
-        "TopicArn": {
-          "Ref": "CraigsTeamAlertsC315D126",
-        },
-      },
-      "Type": "AWS::SNS::Subscription",
-    },
-    "CraigsTeamAlertsC315D126": {
+    "TestTeam2Alerts2BE53530": {
       "Type": "AWS::SNS::Topic",
     },
-    "GenXAlerts64272120047942F64BD": {
+    "TestTeam2Alerts362D23E2E": {
       "Properties": {
-        "Endpoint": "+64272120047",
+        "Endpoint": "+3",
         "Protocol": "sms",
         "TopicArn": {
-          "Ref": "GenXAlerts8EC27B99",
+          "Ref": "TestTeam2Alerts2BE53530",
         },
       },
       "Type": "AWS::SNS::Subscription",
     },
-    "GenXAlerts8EC27B99": {
+    "TestTeam2Alerts4320BD087": {
+      "Properties": {
+        "Endpoint": "+4",
+        "Protocol": "sms",
+        "TopicArn": {
+          "Ref": "TestTeam2Alerts2BE53530",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
+    "TestTeamAlerts17FF09393": {
+      "Properties": {
+        "Endpoint": "+1",
+        "Protocol": "sms",
+        "TopicArn": {
+          "Ref": "TestTeamAlerts58363266",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
+    "TestTeamAlerts2E7EDE869": {
+      "Properties": {
+        "Endpoint": "+2",
+        "Protocol": "sms",
+        "TopicArn": {
+          "Ref": "TestTeamAlerts58363266",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
+    "TestTeamAlerts58363266": {
       "Type": "AWS::SNS::Topic",
     },
   },
