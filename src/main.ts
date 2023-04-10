@@ -34,4 +34,11 @@ if (process.env.NODE_ENV === "ci") {
   });
 }
 
+if (process.env.NODE_ENV === "stage") {
+  new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-stage", {
+    env: devEnv,
+    Contacts: contacts,
+  });
+}
+
 app.synth();
