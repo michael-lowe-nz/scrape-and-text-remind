@@ -7,9 +7,32 @@ on:
 env:
   NODE_ENV: ci
 jobs:
+  deploy-dev:
+    name: Deploy CDK stacks to staging environment
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: "stage"
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::825411367293:role/oidc-setup-GithubDeployRoleB0CF66A5-17IKBEB16VDA1
+          aws-region: ap-southeast-2
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: CDK synth
+        run: npx cdk synth --app "npx ts-node src/main.ts" --output "cdk.out"
+      - name: CDK deploy
+        run: npx cdk deploy --all --app "cdk.out" --require-approval never
   deploy:
     name: Deploy CDK stacks to test
     runs-on: ubuntu-latest
+    needs: deploy-dev
     permissions:
       actions: write
       contents: read
