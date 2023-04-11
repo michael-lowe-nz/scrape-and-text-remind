@@ -10,6 +10,11 @@ const devEnv = {
   region: process.env.CDK_DEFAULT_REGION,
 };
 
+const prodEnv = {
+  account: process.env.CDK_DEFAULT_ACCOUNT,
+  region: process.env.CDK_DEFAULT_REGION,
+};
+
 const app = new App();
 
 /**
@@ -29,7 +34,7 @@ if (!process.env.NODE_ENV) {
 if (process.env.NODE_ENV === "ci") {
   new OIDCSetup(app, "oidc-setup", { env: devEnv });
   new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-prod", {
-    env: devEnv,
+    env: prodEnv,
     Contacts: contacts,
   });
 }
