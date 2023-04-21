@@ -21,8 +21,19 @@ const app = new App();
  * This is what happens when you run a local synth without specifying a NODE_ENV
  */
 
-const data = readFileSync("./src/contacts.yml", "utf-8");
-const contacts: any = load(data);
+/**
+ * If we are in dev, we can use the local contacts.yml file, but in our pipelines,
+ * we grab this from the environment variables.
+ */
+
+let data;
+if (!process.env.NODE_ENV) {
+  data = readFileSync("./src/contacts.yml", "utf-8");
+} else {
+  data = process.env.CONTACTS_YML;
+}
+
+const contacts: any = load(data ? data : "");
 
 if (!process.env.NODE_ENV) {
   new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
