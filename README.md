@@ -18,11 +18,18 @@ npx cdk bootstrap --profile yourprofile
 2. Deploy the OIDCSetup stack into the target account
 
 ```bash
-npm run deploy -- --profile yourprofile OIDCSetup
+npx cdk deploy --app "npx ts-node -P tsconfig.json --prefer-ts-exts src/setup.ts" --profile yourprofile
 ```
 
-Now,
+After you synth this stack, you should get an "Output" that looks a little like:
 
-First you'll need to deploy the `oidcSetup` stack to the target account in order for the Github action to be able to assume the deployment role.
+```bash
+✅  OIDCSetup
 
-WIP... How does this work the first time?
+✨  Deployment time: 16.67s
+
+Outputs:
+OIDCSetup.ExportsOutputFnGetAttGithubDeployRoleXX99 = arn:aws:iam::0000000000:role/OIDCSetup-GithubDeployRoleXX-YY
+```
+
+Then you need to take the ARN exported above, and add it as the deployment role to `.github/deploy` as the `role_to_assume`

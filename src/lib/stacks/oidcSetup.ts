@@ -13,7 +13,7 @@ export class OIDCSetup extends Stack {
       }
     );
 
-    new iam.Role(this, "GithubDeployRole", {
+    const deployRole = new iam.Role(this, "GithubDeployRole", {
       assumedBy: new iam.WebIdentityPrincipal(
         githubProvider.openIdConnectProviderArn,
         {
@@ -38,5 +38,6 @@ export class OIDCSetup extends Stack {
         }),
       },
     });
+    this.exportValue(deployRole.roleArn);
   }
 }
