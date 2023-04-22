@@ -1,7 +1,7 @@
 import { App } from "aws-cdk-lib";
 import { OIDCSetup } from "./lib/stacks/oidcSetup";
 import { LeagueLobsterTextReminder } from "./lib/stacks/leagueLobsterTextReminders";
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { load } from "js-yaml";
 
 // for development, use account/region from cdk cli
@@ -27,8 +27,11 @@ const app = new App();
  */
 
 let data;
-if (!process.env.NODE_ENV) {
+
+if (existsSync("./src/contacts.yml")) {
   data = readFileSync("./src/contacts.yml", "utf-8");
+} else if (process.env.CI === "true") {
+  data = readFileSync("./src/test.contacts.yml", "utf-8");
 } else {
   data = process.env.CONTACTS_YML;
 }
