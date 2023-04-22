@@ -32,4 +32,6 @@ Outputs:
 OIDCSetup.ExportsOutputFnGetAttGithubDeployRoleXX99 = arn:aws:iam::0000000000:role/OIDCSetup-GithubDeployRoleXX-YY
 ```
 
-Then you need to take the ARN exported above, and add it as the deployment role to `.github/deploy` as the `role_to_assume`
+Then you need to take the ARN exported above, and add it as the deployment role to Github as the `DEPLOY_ROLE_ARN`.
+
+Now, when you merge to main, a deployment should kick off to the environment that your role is from .
