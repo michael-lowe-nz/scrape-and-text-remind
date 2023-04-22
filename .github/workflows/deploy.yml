@@ -6,6 +6,7 @@ on:
   workflow_dispatch: {}
 env:
   NODE_ENV: ci
+  CONTACTS_YML: ${{ vars.CONTACTS_YML }}
 jobs:
   deploy-dev:
     name: Deploy CDK stacks to staging environment
