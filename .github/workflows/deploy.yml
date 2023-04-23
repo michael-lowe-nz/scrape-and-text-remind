@@ -9,7 +9,7 @@ env:
   CONTACTS_YML: ${{ vars.CONTACTS_YML }}
 jobs:
   deploy-dev:
-    name: Deploy CDK stacks to staging environment
+    name: Deploy CDK stacks to the dev environment
     runs-on: ubuntu-latest
     env:
       NODE_ENV: "stage"
@@ -34,10 +34,12 @@ jobs:
         run: npx cdk synth --app "npx ts-node src/main.ts" --output "cdk.out"
       - name: CDK deploy
         run: npx cdk deploy --all --app "cdk.out" --require-approval never
-  deploy:
-    name: Deploy CDK stacks to test
+  deploy-prod:
+    name: Deploy CDK stacks to Production
     runs-on: ubuntu-latest
     needs: deploy-dev
+    env:
+      NODE_ENV: "prod"
     permissions:
       actions: write
       contents: read
