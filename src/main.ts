@@ -5,6 +5,11 @@ import { existsSync, readFileSync } from "fs";
 import { load } from "js-yaml";
 
 // for development, use account/region from cdk cli
+const testEnv = {
+  account: process.env.CDK_DEFAULT_ACCOUNT,
+  region: process.env.CDK_DEFAULT_REGION,
+};
+
 const devEnv = {
   account: process.env.CDK_DEFAULT_ACCOUNT,
   region: process.env.CDK_DEFAULT_REGION,
@@ -46,16 +51,16 @@ if (!process.env.NODE_ENV) {
 }
 
 if (process.env.NODE_ENV === "ci") {
-  new OIDCSetup(app, "oidc-setup", { env: devEnv });
-  new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-prod", {
-    env: prodEnv,
+  new OIDCSetup(app, "oidc-setup", { env: testEnv });
+  new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-test", {
+    env: testEnv,
     Contacts: contacts,
   });
 }
 
-if (process.env.NODE_ENV === "stage") {
-  new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-stage", {
-    env: devEnv,
+if (process.env.NODE_ENV === "prod") {
+  new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-prod", {
+    env: prodEnv,
     Contacts: contacts,
   });
 }

@@ -8,11 +8,12 @@ env:
   NODE_ENV: ci
   CONTACTS_YML: ${{ vars.CONTACTS_YML }}
 jobs:
-  deploy-dev:
-    name: Deploy CDK stacks to the dev environment
+  deploy-test:
+    name: Deploy CDK stacks to the test environment
     runs-on: ubuntu-latest
     env:
-      NODE_ENV: "stage"
+      NODE_ENV: "ci"
+    environment: Test
     permissions:
       actions: write
       contents: read
@@ -37,7 +38,8 @@ jobs:
   deploy-prod:
     name: Deploy CDK stacks to Production
     runs-on: ubuntu-latest
-    needs: deploy-dev
+    needs: deploy-test
+    environment: Production
     env:
       NODE_ENV: "prod"
     permissions:
