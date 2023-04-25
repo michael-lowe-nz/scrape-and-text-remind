@@ -2,6 +2,7 @@ name: deploy-test
 on:
   push:
     branches:
+      # - feat/ci
       - main
   workflow_dispatch: {}
 env:
@@ -32,9 +33,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: CDK synth
-        run: npx cdk synth --app "npx ts-node src/main.ts" --output "cdk.out"
+        run: npx cdk synth --app "npx ts-node src/main.ts" --output "cdk.out" league-lobster-text-reminders-test
       - name: CDK deploy
-        run: npx cdk deploy --all --app "cdk.out" --require-approval never
+        run: npx cdk deploy --app "cdk.out" --require-approval never league-lobster-text-reminders-test
   deploy-prod:
     name: Deploy CDK stacks to Production
     runs-on: ubuntu-latest
