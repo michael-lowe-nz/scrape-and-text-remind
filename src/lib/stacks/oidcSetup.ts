@@ -19,8 +19,12 @@ export class OIDCSetup extends Stack {
         {
           StringEquals: {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            // "token.actions.githubusercontent.com:sub":
+            //   "repo:michael-lowe-nz/league-lobster-text-reminders:ref:refs/heads/main",
+          },
+          StringLike: {
             "token.actions.githubusercontent.com:sub":
-              "repo:michael-lowe-nz/league-lobster-text-reminders:ref:refs/heads/main",
+              "repo:michael-lowe-nz/league-lobster-text-reminders:*",
           },
         }
       ),
