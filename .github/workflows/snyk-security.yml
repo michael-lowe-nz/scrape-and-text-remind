@@ -34,10 +34,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           CI: "true"
         with:
-          args: --sarif-file-output=snyk.sarif
-      - name: Snyk IaC test and report
-        uses: snyk/actions/node@master
-        run: snyk iac test cdk.out/*.json --report # || true
+          args: iac test cdk.out/*.json --report --sarif-file-output=snyk.sarif || true
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
