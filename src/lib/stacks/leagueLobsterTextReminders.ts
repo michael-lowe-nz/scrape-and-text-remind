@@ -1,10 +1,11 @@
-import { Stack, StackProps } from "aws-cdk-lib";
+import { Duration, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { SmsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
 import { Contacts, Team } from "../../types";
+import { Key } from "aws-cdk-lib/aws-kms";
 
 export interface LeagueLobsterTextReminderProps extends StackProps {
   Contacts: Contacts;
@@ -18,8 +19,19 @@ export class LeagueLobsterTextReminder extends Stack {
   ) {
     super(scope, id, props);
 
+    const snsKey = new Key(this, "sns-kms-key", {
+      removalPolicy: RemovalPolicy.DESTROY,
+      pendingWindow: Duration.days(7),
+      alias: "sns/league-lobster-key",
+      description: "KMS key for encrypting the objects in an S3 bucket",
+      enableKeyRotation: false,
+    });
+
     props.Contacts.Teams.forEach((team: Team) => {
-      const teamTopic = new Topic(this, `${team.Name}Alerts`);
+      const teamTopic = new Topic(this, `${team.Name}Alerts`, {
+        masterKey: snsKey,
+      });
+
       const teamAlertFunction = new NodejsFunction(
         this,
         `Alert${team.Name}Function`,
