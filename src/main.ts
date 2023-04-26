@@ -23,11 +23,12 @@ const prodEnv = {
 
 const app = new App();
 
-let localContacts;
+let localContacts: any;
 let prodContacts: any;
 
 if (existsSync("./src/contacts.yml")) {
-  localContacts = readFileSync("./src/contacts.yml", "utf-8");
+  const localContactsYml = readFileSync("./src/contacts.yml", "utf-8");
+  localContacts = load(localContactsYml);
 }
 
 if (process.env.CONTACTS_YML) {
@@ -36,11 +37,9 @@ if (process.env.CONTACTS_YML) {
   prodContacts = Contacts.Test;
 }
 
-const localTeams: any = load(localContacts ? localContacts : "");
-
 new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
   env: devEnv,
-  Contacts: localTeams,
+  Contacts: localContacts,
 });
 
 new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-test", {
