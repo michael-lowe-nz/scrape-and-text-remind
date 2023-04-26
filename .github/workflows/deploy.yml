@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: "ci"
-      TEST_PHONE_NUMBER: { { vars.TEST_PHONE_NUMBER } }
+      TEST_PHONE_NUMBER: {{ vars.TEST_PHONE_NUMBER }}
     environment: Test
     permissions:
       actions: write
