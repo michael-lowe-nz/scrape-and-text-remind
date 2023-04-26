@@ -35,7 +35,7 @@ let data;
 
 if (existsSync("./src/contacts.yml")) {
   data = readFileSync("./src/contacts.yml", "utf-8");
-} else if (process.env.CI === "true") {
+} else if (process.env.CI === "true" && process.env.NODE_ENV !== "prod") {
   data = readFileSync("./src/test.contacts.yml", "utf-8");
 } else {
   data = process.env.CONTACTS_YML;
