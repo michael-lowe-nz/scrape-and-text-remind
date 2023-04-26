@@ -11,7 +11,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     '@types/js-yaml',
     'js-yaml'
   ],             /* Build dependencies for this module. */
-  packageName: "League-Lobster-Text-Reminders",  /* The "name" in package.json. */
+  packageName: "league-lobster-text-reminders",  /* The "name" in package.json. */
 });
 
 project.synth();

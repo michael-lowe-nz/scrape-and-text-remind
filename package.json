@@ -1,5 +1,5 @@
 {
-  "name": "League-Lobster-Text-Reminders",
+  "name": "league-lobster-text-reminders",
   "scripts": {
     "build": "npx projen build",
     "bundle": "npx projen bundle",
