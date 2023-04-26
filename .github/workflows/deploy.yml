@@ -63,4 +63,4 @@ jobs:
       - name: CDK synth
         run: npx cdk synth --app "npx ts-node src/main.ts" --output "cdk.out"
       - name: CDK deploy
-        run: npx cdk deploy --all --app "cdk.out" --require-approval never league-lobster-text-reminders-test
+        run: npx cdk deploy --all --app "cdk.out" --require-approval never league-lobster-text-reminders-prod
