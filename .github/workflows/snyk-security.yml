@@ -28,14 +28,13 @@ jobs:
         run: npx projen build
         # Use || true to not fail the pipeline.
       - name: Set up Snyk CLI to check for security issues
-        uses: snyk/actions/node@master
+        uses: snyk/actions/iac@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          CI: "true"
         with:
-          command: iac test cdk.out/*.json
-          args: --report --sarif-file-output=snyk.sarif || true
+          file: cdk.out/*.json
+          args: --report
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
