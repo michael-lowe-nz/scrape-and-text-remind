@@ -3,6 +3,7 @@ import { OIDCSetup } from "./lib/stacks/oidcSetup";
 import { LeagueLobsterTextReminder } from "./lib/stacks/leagueLobsterTextReminders";
 import { existsSync, readFileSync } from "fs";
 import { load } from "js-yaml";
+import Contacts from "./contacts";
 
 // for development, use account/region from cdk cli
 const testEnv = {
@@ -22,47 +23,37 @@ const prodEnv = {
 
 const app = new App();
 
-/**
- * This is what happens when you run a local synth without specifying a NODE_ENV
- */
-
-/**
- * If we are in dev, we can use the local contacts.yml file, but in our pipelines,
- * we grab this from the environment variables.
- */
-
-let data;
+let localContacts: any;
+let prodContacts: any;
 
 if (existsSync("./src/contacts.yml")) {
-  data = readFileSync("./src/contacts.yml", "utf-8");
-} else if (process.env.CI === "true" && process.env.NODE_ENV !== "prod") {
-  data = readFileSync("./src/test.contacts.yml", "utf-8");
+  const localContactsYml = readFileSync("./src/contacts.yml", "utf-8");
+  localContacts = load(localContactsYml);
 } else {
-  data = process.env.CONTACTS_YML;
+  localContacts = Contacts.Test;
 }
 
-const contacts: any = load(data ? data : "");
-
-if (!process.env.NODE_ENV) {
-  new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
-    env: devEnv,
-    Contacts: contacts,
-  });
+if (process.env.CONTACTS_YML) {
+  prodContacts = load(process.env.CONTACTS_YML);
+} else {
+  prodContacts = Contacts.Test;
 }
 
-if (process.env.NODE_ENV === "ci") {
-  new OIDCSetup(app, "oidc-setup", { env: testEnv });
-  new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-test", {
-    env: testEnv,
-    Contacts: contacts,
-  });
-}
+new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
+  env: devEnv,
+  Contacts: localContacts,
+});
 
-if (process.env.NODE_ENV === "prod") {
-  new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-prod", {
-    env: prodEnv,
-    Contacts: contacts,
-  });
-}
+new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-test", {
+  env: testEnv,
+  Contacts: Contacts.Test,
+});
+
+new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-prod", {
+  env: prodEnv,
+  Contacts: prodContacts,
+});
+
+new OIDCSetup(app, "oidc-setup", { env: testEnv });
 
 app.synth();
