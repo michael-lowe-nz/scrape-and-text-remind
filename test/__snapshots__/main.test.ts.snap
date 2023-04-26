@@ -181,6 +181,14 @@ exports[`Snapshot 1`] = `
       "Type": "AWS::IAM::Policy",
     },
     "TestTeam2Alerts2BE53530": {
+      "Properties": {
+        "KmsMasterKeyId": {
+          "Fn::GetAtt": [
+            "snskmskey1F6AC6F6",
+            "Arn",
+          ],
+        },
+      },
       "Type": "AWS::SNS::Topic",
     },
     "TestTeam2Alerts362D23E2E": {
@@ -224,7 +232,65 @@ exports[`Snapshot 1`] = `
       "Type": "AWS::SNS::Subscription",
     },
     "TestTeamAlerts58363266": {
+      "Properties": {
+        "KmsMasterKeyId": {
+          "Fn::GetAtt": [
+            "snskmskey1F6AC6F6",
+            "Arn",
+          ],
+        },
+      },
       "Type": "AWS::SNS::Topic",
+    },
+    "snskmskey1F6AC6F6": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Description": "KMS key for encrypting the objects in an S3 bucket",
+        "EnableKeyRotation": false,
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PendingWindowInDays": 7,
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "snskmskeyAlias7A51B3E5": {
+      "Properties": {
+        "AliasName": "alias/sns/league-lobster-key",
+        "TargetKeyId": {
+          "Fn::GetAtt": [
+            "snskmskey1F6AC6F6",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::KMS::Alias",
     },
   },
   "Rules": {
