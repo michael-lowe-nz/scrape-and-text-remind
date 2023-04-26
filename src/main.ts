@@ -29,6 +29,8 @@ let prodContacts: any;
 if (existsSync("./src/contacts.yml")) {
   const localContactsYml = readFileSync("./src/contacts.yml", "utf-8");
   localContacts = load(localContactsYml);
+} else {
+  localContacts = Contacts.Test;
 }
 
 if (process.env.CONTACTS_YML) {
