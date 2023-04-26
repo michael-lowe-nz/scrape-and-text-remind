@@ -1,7 +1,7 @@
 # League Lobster Text Reminders 📲
 
 [![build](https://github.com/michael-lowe-nz/league-lobster-text-reminders/actions/workflows/build.yml/badge.svg)](https://github.com/michael-lowe-nz/league-lobster-text-reminders/actions/workflows/build.yml)
-[![Known Vulnerabilities](https://snyk.io/test/github/michael-lowe-nz/league-lobster-text-reminders/badge.svg)]
+![Snyk.io Known Vulnerabilities](https://snyk.io/test/github/michael-lowe-nz/league-lobster-text-reminders/badge.svg)
 
 This repository contains a CDK stack that stands up infrastructure that will text reminders to your teammates about your upcoming games.
 
