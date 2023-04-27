@@ -280,18 +280,6 @@ exports[`Snapshot 1`] = `
       "Type": "AWS::KMS::Key",
       "UpdateReplacePolicy": "Delete",
     },
-    "snskmskeyAlias7A51B3E5": {
-      "Properties": {
-        "AliasName": "alias/sns/league-lobster-key",
-        "TargetKeyId": {
-          "Fn::GetAtt": [
-            "snskmskey1F6AC6F6",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::KMS::Alias",
-    },
   },
   "Rules": {
     "CheckBootstrapVersion": {
