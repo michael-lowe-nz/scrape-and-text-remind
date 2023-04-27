@@ -22,7 +22,6 @@ export class LeagueLobsterTextReminder extends Stack {
     const snsKey = new Key(this, "sns-kms-key", {
       removalPolicy: RemovalPolicy.DESTROY,
       pendingWindow: Duration.days(7),
-      alias: "sns/league-lobster-key",
       description: "KMS key for encrypting the objects in an S3 bucket",
       enableKeyRotation: false,
     });
