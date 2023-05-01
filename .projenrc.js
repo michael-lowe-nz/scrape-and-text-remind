@@ -9,7 +9,8 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   devDeps: [
     '@types/js-yaml',
-    'js-yaml'
+    'js-yaml',
+    'cdk-pipelines-github@0.4.47'
   ],             /* Build dependencies for this module. */
   packageName: "league-lobster-text-reminders",  /* The "name" in package.json. */
 });

@@ -27,6 +27,7 @@
     "@types/js-yaml": "*",
     "@types/node": "^16",
     "aws-cdk": "^2.1.0",
+    "cdk-pipelines-github": "0.4.47",
     "esbuild": "^0.17.18",
     "jest": "^29.5.0",
     "jest-junit": "^15",
