@@ -1,5 +1,7 @@
 import { existsSync, readFileSync } from "fs";
 import { App, Stage, StageProps } from "aws-cdk-lib";
+import { ShellStep } from "aws-cdk-lib/pipelines";
+import { AwsCredentials, GitHubWorkflow } from "cdk-pipelines-github";
 import { Construct } from "constructs";
 import { load } from "js-yaml";
 import ContactData from "./contacts";
@@ -42,7 +44,7 @@ if (process.env.CONTACTS_YML) {
   prodContacts = ContactData.Test;
 }
 
-new OIDCSetup(app, "oidc-setup", { env: devEnv });
+const oidcStack = new OIDCSetup(app, "oidc-setup", { env: devEnv });
 
 interface StageTemplateProps extends StageProps {
   contacts: Contacts;
@@ -58,7 +60,16 @@ class TextRemindersStage extends Stage {
   }
 }
 
-new TextRemindersStage(app, "dev-stage", {
+const pipeline = new GitHubWorkflow(app, "Pipeline", {
+  synth: new ShellStep("Build", {
+    commands: ["npm run synth"],
+  }),
+  awsCreds: AwsCredentials.fromOpenIdConnect({
+    gitHubActionRoleArn: oidcStack.exportValue(),
+  }),
+});
+
+const devStage = new TextRemindersStage(app, "dev-stage", {
   env: devEnv,
   contacts: localContacts,
 });
@@ -72,5 +83,7 @@ new TextRemindersStage(app, "prod-stage", {
   env: devEnv,
   contacts: prodContacts,
 });
+
+pipeline.addStage(devStage);
 
 app.synth();

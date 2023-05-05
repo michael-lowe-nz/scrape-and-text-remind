@@ -1,10 +1,19 @@
-import { Stack, StackProps, aws_iam as iam } from "aws-cdk-lib";
+import { Stack, StackProps } from "aws-cdk-lib";
+import {
+  Role,
+  WebIdentityPrincipal,
+  PolicyDocument,
+  Effect,
+  PolicyStatement,
+  OpenIdConnectProvider,
+} from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
 
 export class OIDCSetup extends Stack {
+  // public readonly deployRole: Role;
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
-    const githubProvider = new iam.OpenIdConnectProvider(
+    const githubProvider = new OpenIdConnectProvider(
       this,
       "GithubOIDCProvider",
       {
@@ -13,8 +22,8 @@ export class OIDCSetup extends Stack {
       }
     );
 
-    const deployRole = new iam.Role(this, "GithubDeployRole", {
-      assumedBy: new iam.WebIdentityPrincipal(
+    const deployRole = new Role(this, "GithubDeployRole", {
+      assumedBy: new WebIdentityPrincipal(
         githubProvider.openIdConnectProviderArn,
         {
           StringEquals: {
@@ -30,11 +39,11 @@ export class OIDCSetup extends Stack {
       ),
       description: "Role to be used by Github actions",
       inlinePolicies: {
-        CdkDeploymentPolicy: new iam.PolicyDocument({
+        CdkDeploymentPolicy: new PolicyDocument({
           assignSids: true,
           statements: [
-            new iam.PolicyStatement({
-              effect: iam.Effect.ALLOW,
+            new PolicyStatement({
+              effect: Effect.ALLOW,
               actions: ["sts:AssumeRole"],
               resources: [`arn:aws:iam::${this.account}:role/cdk-*`],
             }),
