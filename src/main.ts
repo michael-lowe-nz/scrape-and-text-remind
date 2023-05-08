@@ -1,9 +1,9 @@
-import { App } from "aws-cdk-lib";
-import { OIDCSetup } from "./lib/stacks/oidcSetup";
-import { LeagueLobsterTextReminder } from "./lib/stacks/leagueLobsterTextReminders";
 import { existsSync, readFileSync } from "fs";
+import { App } from "aws-cdk-lib";
 import { load } from "js-yaml";
 import Contacts from "./contacts";
+import { LeagueLobsterTextReminder } from "./lib/stacks/leagueLobsterTextReminders";
+import { OIDCSetup } from "./lib/stacks/oidcSetup";
 
 // for development, use account/region from cdk cli
 const testEnv = {
@@ -34,7 +34,7 @@ if (existsSync("./src/contacts.yml")) {
 }
 
 if (process.env.CONTACTS_YML) {
-  prodContacts = load(process.env.CONTACTS_YML);
+  // prodContacts = load(process.env.CONTACTS_YML);
 } else {
   prodContacts = Contacts.Test;
 }

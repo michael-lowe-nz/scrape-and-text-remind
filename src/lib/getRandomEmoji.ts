@@ -936,5 +936,5 @@ export function getRandomEmoji() {
     "🪂",
   ];
 
-  return emojis[~~(Math.random() * emojis.length)];
+  return emojis[Math.floor(Math.random() * emojis.length)];
 }
