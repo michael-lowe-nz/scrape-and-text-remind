@@ -34,7 +34,7 @@ if (existsSync("./src/contacts.yml")) {
 }
 
 if (process.env.CONTACTS_YML) {
-  // prodContacts = load(process.env.CONTACTS_YML);
+  prodContacts = load(process.env.CONTACTS_YML);
 } else {
   prodContacts = Contacts.Test;
 }
