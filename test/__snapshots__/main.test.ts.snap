@@ -38,6 +38,9 @@ exports[`Snapshot 1`] = `
           ],
         },
         "Runtime": "nodejs18.x",
+        "TracingConfig": {
+          "Mode": "Active",
+        },
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -46,10 +49,31 @@ exports[`Snapshot 1`] = `
         "PolicyDocument": {
           "Statement": [
             {
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
               "Action": "sns:Publish",
               "Effect": "Allow",
               "Resource": {
                 "Ref": "TestTeam2Alerts2BE53530",
+              },
+            },
+            {
+              "Action": [
+                "kms:GenerateDataKey",
+                "kms:Decrypt",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "snskmskey1F6AC6F6",
+                  "Arn",
+                ],
               },
             },
           ],
@@ -123,6 +147,9 @@ exports[`Snapshot 1`] = `
           ],
         },
         "Runtime": "nodejs18.x",
+        "TracingConfig": {
+          "Mode": "Active",
+        },
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -162,10 +189,31 @@ exports[`Snapshot 1`] = `
         "PolicyDocument": {
           "Statement": [
             {
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
               "Action": "sns:Publish",
               "Effect": "Allow",
               "Resource": {
                 "Ref": "TestTeamAlerts58363266",
+              },
+            },
+            {
+              "Action": [
+                "kms:GenerateDataKey",
+                "kms:Decrypt",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "snskmskey1F6AC6F6",
+                  "Arn",
+                ],
               },
             },
           ],
@@ -246,7 +294,7 @@ exports[`Snapshot 1`] = `
       "DeletionPolicy": "Delete",
       "Properties": {
         "Description": "KMS key for encrypting the objects in an S3 bucket",
-        "EnableKeyRotation": false,
+        "EnableKeyRotation": true,
         "KeyPolicy": {
           "Statement": [
             {
