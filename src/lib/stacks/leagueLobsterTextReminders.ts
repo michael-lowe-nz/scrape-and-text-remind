@@ -1,6 +1,7 @@
 import { Duration, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
+import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Key } from "aws-cdk-lib/aws-kms";
-import { Runtime } from "aws-cdk-lib/aws-lambda";
+import { Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { SmsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
@@ -23,7 +24,7 @@ export class LeagueLobsterTextReminder extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
       pendingWindow: Duration.days(7),
       description: "KMS key for encrypting the objects in an S3 bucket",
-      enableKeyRotation: false,
+      enableKeyRotation: true,
     });
 
     props.Contacts.Teams.forEach((team: Team) => {
@@ -40,9 +41,16 @@ export class LeagueLobsterTextReminder extends Stack {
           environment: {
             SNS_TOPIC_ARN: teamTopic.topicArn,
           },
+          tracing: Tracing.ACTIVE,
         }
       );
       teamTopic.grantPublish(teamAlertFunction);
+      teamAlertFunction.addToRolePolicy(
+        new PolicyStatement({
+          actions: ["kms:GenerateDataKey", "kms:Decrypt"],
+          resources: [snsKey.keyArn],
+        })
+      );
       team.Players.forEach((player: any) => {
         teamTopic.addSubscription(new SmsSubscription(player.Number));
       });
