@@ -32,3 +32,11 @@ npm run build
 
 the `.github/workflows/deploy.yml` will be generated.
 Now if you commit and push, and merge to main, deployments will be kicked off ⚡️
+
+# Dev
+
+To deploy the dev stage to your AWS account, but not through the pipeline for development, you'll want to run:
+
+```bash
+npm run deploy -- --profile yourprofile --app 'cdk.out/assembly-dev-stage'
+```
