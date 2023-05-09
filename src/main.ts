@@ -50,7 +50,7 @@ class TextRemindersStage extends Stage {
 
 const pipeline = new GitHubWorkflow(app, "Pipeline", {
   synth: new ShellStep("Build", {
-    commands: ["npm run synth"],
+    commands: ["yarn", "yarn build"],
   }),
   awsCreds: AwsCredentials.fromOpenIdConnect({
     gitHubActionRoleArn: oidcStack.role.roleArn,

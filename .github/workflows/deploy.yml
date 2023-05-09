@@ -5,7 +5,7 @@ name: deploy
 on:
   push:
     branches:
-      - main
+      - feat/refactor-to-stages
   workflow_dispatch: {}
 jobs:
   Build-Build:
@@ -20,7 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
-        run: npm run synth
+        run: |-
+          yarn
+          yarn build
       - name: Upload cdk.out
         uses: actions/upload-artifact@v3
         with:
@@ -144,7 +146,8 @@ jobs:
         uses: aws-actions/aws-cloudformation-github-deploy@v1.1.0
         with:
           name: dev-stage-TextReminders
-          template: https://cdk-hnb659fds-assets-454817366727-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
+          template:
+            https://cdk-hnb659fds-assets-454817366727-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
             needs.Assets-FileAsset1.outputs.asset-hash }}.json
           no-fail-on-empty-changeset: "1"
           role-arn: arn:aws:iam::454817366727:role/cdk-hnb659fds-cfn-exec-role-454817366727-ap-southeast-2
@@ -183,7 +186,8 @@ jobs:
         uses: aws-actions/aws-cloudformation-github-deploy@v1.1.0
         with:
           name: prod-stage-TextReminders
-          template: https://cdk-hnb659fds-assets-454817366727-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
+          template:
+            https://cdk-hnb659fds-assets-454817366727-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
             needs.Assets-FileAsset3.outputs.asset-hash }}.json
           no-fail-on-empty-changeset: "1"
           role-arn: arn:aws:iam::454817366727:role/cdk-hnb659fds-cfn-exec-role-454817366727-ap-southeast-2
