@@ -10,7 +10,7 @@ import {
 import { Construct } from "constructs";
 
 export class OIDCSetup extends Stack {
-  // public readonly deployRole: Role;
+  role: Role;
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
     const githubProvider = new OpenIdConnectProvider(
@@ -51,6 +51,7 @@ export class OIDCSetup extends Stack {
         }),
       },
     });
-    this.exportValue(deployRole.roleArn);
+    this.role = deployRole;
+    // this.exportValue(deployRole.roleArn);
   }
 }

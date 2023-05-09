@@ -8,23 +8,11 @@ import ContactData from "./contacts";
 import { LeagueLobsterTextReminder } from "./lib/stacks/leagueLobsterTextReminders";
 import { OIDCSetup } from "./lib/stacks/oidcSetup";
 import { Contacts } from "./types";
-// import { Construct } from "constructs";
-
-// for development, use account/region from cdk cli
-// const testEnv = {
-//   account: process.env.CDK_DEFAULT_ACCOUNT,
-//   region: process.env.CDK_DEFAULT_REGION,
-// };
 
 const devEnv = {
   account: process.env.CDK_DEFAULT_ACCOUNT,
   region: process.env.CDK_DEFAULT_REGION,
 };
-
-// const prodEnv = {
-//   account: process.env.CDK_DEFAULT_ACCOUNT,
-//   region: process.env.CDK_DEFAULT_REGION,
-// };
 
 const app = new App();
 
@@ -65,7 +53,7 @@ const pipeline = new GitHubWorkflow(app, "Pipeline", {
     commands: ["npm run synth"],
   }),
   awsCreds: AwsCredentials.fromOpenIdConnect({
-    gitHubActionRoleArn: oidcStack.exportValue(),
+    gitHubActionRoleArn: oidcStack.role.roleArn,
   }),
 });
 
@@ -79,11 +67,17 @@ new TextRemindersStage(app, "test-stage", {
   contacts: ContactData.Test,
 });
 
-new TextRemindersStage(app, "prod-stage", {
+const prodStage = new TextRemindersStage(app, "prod-stage", {
   env: devEnv,
   contacts: prodContacts,
 });
 
-pipeline.addStage(devStage);
+pipeline.addStageWithGitHubOptions(devStage, {
+  gitHubEnvironment: { name: "Test" },
+});
+
+pipeline.addStageWithGitHubOptions(prodStage, {
+  gitHubEnvironment: { name: "Production" },
+});
 
 app.synth();

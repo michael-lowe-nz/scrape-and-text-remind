@@ -11,6 +11,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "@types/js-yaml@4.0.5",
     "js-yaml",
     "@aws-sdk/client-sns",
+    "cdk-pipelines-github",
   ] /* Runtime dependencies of this module. */,
   description: "Send Text Reminders based on a lambda scrape and approval",
   devDeps: [] /* Build dependencies for this module. */,
