@@ -92,6 +92,14 @@
       "type": "runtime"
     },
     {
+      "name": "@types/axios",
+      "type": "runtime"
+    },
+    {
+      "name": "@types/cheerio",
+      "type": "runtime"
+    },
+    {
       "name": "@types/js-yaml",
       "version": "4.0.5",
       "type": "runtime"
@@ -102,7 +110,15 @@
       "type": "runtime"
     },
     {
+      "name": "axios",
+      "type": "runtime"
+    },
+    {
       "name": "cdk-pipelines-github",
+      "type": "runtime"
+    },
+    {
+      "name": "cheerio",
       "type": "runtime"
     },
     {
