@@ -106,10 +106,6 @@
       "type": "runtime"
     },
     {
-      "name": "cheerio",
-      "type": "runtime"
-    },
-    {
       "name": "constructs",
       "version": "^10.0.5",
       "type": "runtime"
