@@ -10,8 +10,8 @@ import { LeagueLobsterTextReminder } from "./lib/stacks/leagueLobsterTextReminde
 import { Contacts } from "./types";
 
 const devEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
+  account: process.env.CDK_DEFAULT_ACCOUNT || "825411367293",
+  region: process.env.CDK_DEFAULT_REGION || "ap-southeast-2",
 };
 
 const app = new App();
