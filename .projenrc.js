@@ -23,6 +23,9 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   lambdaOptions: {
     externals: ["@aws-cdk/client-sns", "axios"],
   },
+  githubOptions: {
+    pullRequestLint: false,
+  },
 });
 
 project.synth();
