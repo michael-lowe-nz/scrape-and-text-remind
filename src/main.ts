@@ -6,7 +6,7 @@ import { Construct } from "constructs";
 import { load } from "js-yaml";
 import ContactData from "./contacts";
 import { LeagueLobsterTextReminder } from "./lib/stacks/leagueLobsterTextReminders";
-import { OIDCSetup } from "./lib/stacks/oidcSetup";
+// import { OIDCSetup } from "./lib/stacks/oidcSetup";
 import { Contacts } from "./types";
 
 const devEnv = {
@@ -32,7 +32,7 @@ if (process.env.CONTACTS_YML) {
   prodContacts = ContactData.Test;
 }
 
-const oidcStack = new OIDCSetup(app, "oidc-setup", { env: devEnv });
+// const oidcStack = new OIDCSetup(app, "oidc-setup", { env: devEnv });
 
 interface StageTemplateProps extends StageProps {
   contacts: Contacts;
@@ -53,7 +53,8 @@ const pipeline = new GitHubWorkflow(app, "Pipeline", {
     commands: ["yarn", "yarn build"],
   }),
   awsCreds: AwsCredentials.fromOpenIdConnect({
-    gitHubActionRoleArn: oidcStack.role.roleArn,
+    gitHubActionRoleArn:
+      "arn:aws:iam::825411367293:role/oidc-setup-GithubDeployRoleB0CF66A5-16XETSY331029",
   }),
 });
 
