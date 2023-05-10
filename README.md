@@ -16,23 +16,27 @@ yarn
 npx cdk bootstrap --profile yourprofile
 ```
 
-2. Deploy the OIDCSetup stack into the target account
+## 2. Deploy the OIDCSetup stack into the target account
 
 ```bash
-npx cdk deploy --profile yourprofile oidc-setup
+npx cdk deploy --profile yourprofile
 ```
 
-After you synth this stack, you should get an "Output" that looks a little like:
+## 3. Generate the Github Action for Deployment
+
+Now if you run:
 
 ```bash
-✅  OIDCSetup
-
-✨  Deployment time: 16.67s
-
-Outputs:
-OIDCSetup.ExportsOutputFnGetAttGithubDeployRoleXX99 = arn:aws:iam::0000000000:role/OIDCSetup-GithubDeployRoleXX-YY
+npm run build
 ```
 
-Then you need to take the ARN exported above, and add it as the deployment role to Github as the `DEPLOY_ROLE_ARN`.
+the `.github/workflows/deploy.yml` will be generated.
+Now if you commit and push, and merge to main, deployments will be kicked off ⚡️
 
-Now, when you merge to main, a deployment should kick off to the environment that your role is from .
+# Dev
+
+To deploy the dev stage to your AWS account, but not through the pipeline for development, you'll want to run:
+
+```bash
+npm run deploy -- --profile yourprofile --app 'cdk.out/assembly-dev-stage'
+```

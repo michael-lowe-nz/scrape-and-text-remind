@@ -33,7 +33,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          file: cdk.out/*.json
+          file: cdk.out/**/*.json
           args: --report --sarif-file-output=snyk.sarif
 
       - name: Upload result to GitHub Code Scanning

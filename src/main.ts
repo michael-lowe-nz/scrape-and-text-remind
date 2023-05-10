@@ -1,24 +1,18 @@
 import { existsSync, readFileSync } from "fs";
-import { App } from "aws-cdk-lib";
+import { App, Stage, StageProps } from "aws-cdk-lib";
+import { ShellStep } from "aws-cdk-lib/pipelines";
+import { AwsCredentials, GitHubWorkflow } from "cdk-pipelines-github";
+import { Construct } from "constructs";
 import { load } from "js-yaml";
-import Contacts from "./contacts";
+import ContactData from "./contacts";
 import { LeagueLobsterTextReminder } from "./lib/stacks/leagueLobsterTextReminders";
-import { OIDCSetup } from "./lib/stacks/oidcSetup";
-
-// for development, use account/region from cdk cli
-const testEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
-};
+// import { OIDCSetup } from "./lib/stacks/oidcSetup";
+import { Contacts } from "./types";
 
 const devEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
-};
-
-const prodEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
+  account: "825411367293",
+  // region: process.env.CDK_DEFAULT_REGION || "ap-southeast-2",
+  region: "ap-southeast-2",
 };
 
 const app = new App();
@@ -30,30 +24,62 @@ if (existsSync("./src/contacts.yml")) {
   const localContactsYml = readFileSync("./src/contacts.yml", "utf-8");
   localContacts = load(localContactsYml);
 } else {
-  localContacts = Contacts.Test;
+  localContacts = ContactData.Test;
 }
 
 if (process.env.CONTACTS_YML) {
   prodContacts = load(process.env.CONTACTS_YML);
 } else {
-  prodContacts = Contacts.Test;
+  prodContacts = ContactData.Test;
 }
 
-new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-dev", {
+// const oidcStack = new OIDCSetup(app, "oidc-setup", { env: devEnv });
+
+interface StageTemplateProps extends StageProps {
+  contacts: Contacts;
+}
+
+class TextRemindersStage extends Stage {
+  constructor(scope: Construct, id: string, props: StageTemplateProps) {
+    super(scope, id, props);
+
+    new LeagueLobsterTextReminder(this, "TextReminders", {
+      Contacts: props.contacts,
+    });
+  }
+}
+
+const pipeline = new GitHubWorkflow(app, "Pipeline", {
+  synth: new ShellStep("Build", {
+    commands: ["yarn", "yarn build"],
+  }),
+  awsCreds: AwsCredentials.fromOpenIdConnect({
+    gitHubActionRoleArn:
+      "arn:aws:iam::825411367293:role/oidc-setup-GithubDeployRoleB0CF66A5-16XETSY331029",
+  }),
+});
+
+const devStage = new TextRemindersStage(app, "dev-stage", {
   env: devEnv,
-  Contacts: localContacts,
+  contacts: localContacts,
 });
 
-new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-test", {
-  env: testEnv,
-  Contacts: Contacts.Test,
+new TextRemindersStage(app, "test-stage", {
+  env: devEnv,
+  contacts: ContactData.Test,
 });
 
-new LeagueLobsterTextReminder(app, "league-lobster-text-reminders-prod", {
-  env: prodEnv,
-  Contacts: prodContacts,
+const prodStage = new TextRemindersStage(app, "prod-stage", {
+  env: devEnv,
+  contacts: prodContacts,
 });
 
-new OIDCSetup(app, "oidc-setup", { env: testEnv });
+pipeline.addStageWithGitHubOptions(devStage, {
+  gitHubEnvironment: { name: "Test" },
+});
+
+pipeline.addStageWithGitHubOptions(prodStage, {
+  gitHubEnvironment: { name: "Production" },
+});
 
 app.synth();

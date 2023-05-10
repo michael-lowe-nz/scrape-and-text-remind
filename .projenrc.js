@@ -6,18 +6,25 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   gitignore: ["src/contacts.yml"],
   eslint: true,
   prettier: true,
-  // prettierOptions: { settings: { singleQuote: true, trailingComma: 'es5' } },
   deps: [
     "@types/js-yaml@4.0.5",
     "js-yaml",
     "@aws-sdk/client-sns",
+    "cdk-pipelines-github",
+    // "cheerio",
+    // "@types/cheerio",
+    // "@types/axios",
+    // "axios",
   ] /* Runtime dependencies of this module. */,
   description: "Send Text Reminders based on a lambda scrape and approval",
   devDeps: [] /* Build dependencies for this module. */,
   packageName:
     "league-lobster-text-reminders" /* The "name" in package.json. */,
   lambdaOptions: {
-    externals: ["@aws-cdk/client-sns"],
+    externals: ["@aws-cdk/client-sns", "axios"],
+  },
+  githubOptions: {
+    pullRequestLint: false,
   },
 });
 
