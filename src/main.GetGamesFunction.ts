@@ -8,9 +8,9 @@ exports.handler = async () => {
   const url = `https://websites.mygameday.app/team_info.cgi?c=0-2854-0-622183-27083591&a=SFIX`;
   const requestResponse: any = await axios.get(url);
   const gameData = getThisWeeksGameFromHtml(requestResponse.data);
-  const Message = `🏀 Gen-X Reminders 🏀:
+  const Message = `🏀 Gen-X Reminders 🏀
   Hey guys!
-  Game is ${gameData.gameInfo}}
+  Game is ${gameData.gameInfo}
   ${getRandomEmoji()}${getRandomEmoji()}${getRandomEmoji()}
   `;
   const params = {

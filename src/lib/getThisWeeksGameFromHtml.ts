@@ -31,7 +31,6 @@ export function getThisWeeksGameFromHtml(html: any) {
 
   tableData.splice(0, 2);
   const cleaned = tableData.map((row: any) => {
-    console.log(row);
     const keys = Object.keys(row);
     const time = keys[2];
     const date = keys[1].split(" ")[0];
@@ -43,7 +42,6 @@ export function getThisWeeksGameFromHtml(html: any) {
       date,
     };
   });
-  console.log(cleaned);
 
   const correct = cleaned.find((item: any) => {
     const gameDate = moment(item.date, "DD-MM-YY");
