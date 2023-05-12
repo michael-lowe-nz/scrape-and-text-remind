@@ -13,15 +13,15 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "cdk-pipelines-github",
     // "cheerio",
     // "@types/cheerio",
-    // "@types/axios",
-    // "axios",
+    "@types/axios",
+    "axios",
   ] /* Runtime dependencies of this module. */,
   description: "Send Text Reminders based on a lambda scrape and approval",
   devDeps: [] /* Build dependencies for this module. */,
   packageName:
     "league-lobster-text-reminders" /* The "name" in package.json. */,
   lambdaOptions: {
-    externals: ["@aws-cdk/client-sns", "axios"],
+    externals: ["@aws-cdk/client-sns"],
   },
   githubOptions: {
     pullRequestLint: false,

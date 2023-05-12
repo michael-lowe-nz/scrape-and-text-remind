@@ -48,8 +48,10 @@
   },
   "dependencies": {
     "@aws-sdk/client-sns": "^3.332.0",
+    "@types/axios": "^0.14.0",
     "@types/js-yaml": "4.0.5",
     "aws-cdk-lib": "^2.1.0",
+    "axios": "^1.4.0",
     "cdk-pipelines-github": "^0.4.55",
     "constructs": "^10.0.5",
     "js-yaml": "^4.1.0"

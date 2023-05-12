@@ -92,6 +92,10 @@
       "type": "runtime"
     },
     {
+      "name": "@types/axios",
+      "type": "runtime"
+    },
+    {
       "name": "@types/js-yaml",
       "version": "4.0.5",
       "type": "runtime"
@@ -99,6 +103,10 @@
     {
       "name": "aws-cdk-lib",
       "version": "^2.1.0",
+      "type": "runtime"
+    },
+    {
+      "name": "axios",
       "type": "runtime"
     },
     {
