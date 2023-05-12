@@ -41,16 +41,16 @@
     "jest-junit": "^15",
     "npm-check-updates": "^16",
     "prettier": "^2.8.8",
-    "projen": "^0.71.48",
+    "projen": "^0.71.53",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@aws-sdk/client-sns": "^3.329.0",
+    "@aws-sdk/client-sns": "^3.332.0",
     "@types/js-yaml": "4.0.5",
     "aws-cdk-lib": "^2.1.0",
-    "cdk-pipelines-github": "^0.4.52",
+    "cdk-pipelines-github": "^0.4.55",
     "constructs": "^10.0.5",
     "js-yaml": "^4.1.0"
   },
