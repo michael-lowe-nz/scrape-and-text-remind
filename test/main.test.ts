@@ -65,3 +65,10 @@ test("Test that the stack builds an SNS topic with the right number of subscribe
   expect(template.resourceCountIs("AWS::SNS::Subscription", 4));
   expect(template.resourceCountIs("AWS::SNS::Topic", 2));
 });
+
+test("Test that the Text reminder stack builds a lambda function to remind each team", () => {
+  const app = new App();
+  const stack = new LeagueLobsterTextReminder(app, "test", TestProps);
+  const template = Template.fromStack(stack);
+  expect(template.resourceCountIs("AWS::Lambda::Function", 2));
+});

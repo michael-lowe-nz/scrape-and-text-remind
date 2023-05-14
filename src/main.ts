@@ -6,12 +6,10 @@ import { Construct } from "constructs";
 import { load } from "js-yaml";
 import ContactData from "./contacts";
 import { LeagueLobsterTextReminder } from "./lib/stacks/leagueLobsterTextReminders";
-// import { OIDCSetup } from "./lib/stacks/oidcSetup";
 import { Contacts } from "./types";
 
 const devEnv = {
   account: "825411367293",
-  // region: process.env.CDK_DEFAULT_REGION || "ap-southeast-2",
   region: "ap-southeast-2",
 };
 
@@ -32,8 +30,6 @@ if (process.env.CONTACTS_YML) {
 } else {
   prodContacts = ContactData.Test;
 }
-
-// const oidcStack = new OIDCSetup(app, "oidc-setup", { env: devEnv });
 
 interface StageTemplateProps extends StageProps {
   contacts: Contacts;

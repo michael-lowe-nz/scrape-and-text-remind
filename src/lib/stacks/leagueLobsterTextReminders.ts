@@ -40,7 +40,9 @@ export class LeagueLobsterTextReminder extends Stack {
           entry: "./src/main.GetGamesFunction.ts",
           environment: {
             SNS_TOPIC_ARN: teamTopic.topicArn,
+            TZ: "Pacific/Auckland",
           },
+          timeout: Duration.seconds(5),
           tracing: Tracing.ACTIVE,
         }
       );

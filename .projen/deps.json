@@ -92,6 +92,18 @@
       "type": "runtime"
     },
     {
+      "name": "@types/aws-lambda",
+      "type": "runtime"
+    },
+    {
+      "name": "@types/axios",
+      "type": "runtime"
+    },
+    {
+      "name": "@types/cheerio",
+      "type": "runtime"
+    },
+    {
       "name": "@types/js-yaml",
       "version": "4.0.5",
       "type": "runtime"
@@ -102,7 +114,16 @@
       "type": "runtime"
     },
     {
+      "name": "axios",
+      "type": "runtime"
+    },
+    {
       "name": "cdk-pipelines-github",
+      "type": "runtime"
+    },
+    {
+      "name": "cheerio",
+      "version": "latest",
       "type": "runtime"
     },
     {
@@ -112,6 +133,10 @@
     },
     {
       "name": "js-yaml",
+      "type": "runtime"
+    },
+    {
+      "name": "moment",
       "type": "runtime"
     }
   ],
