@@ -20,13 +20,13 @@ export function getThisWeeksGameFromHtml(html: any) {
     return gameDate.isBetween(now, oneWeekFromNow);
   });
 
+  const { dateString, time, teamAgainst, court } = thisWeeksGame;
+
   return {
     ...thisWeeksGame,
-    gameInfo: `${moment(thisWeeksGame.dateString, "DD-MM-YY").format(
-      "dddd"
-    )} at ${moment(thisWeeksGame.time, "HH:mm").format("ha")} vs. ${
-      thisWeeksGame.teamAgainst
-    } on ${thisWeeksGame.court}`,
+    // eslint-disable-next-line prettier/prettier
+    // prettier-ignore
+    gameInfo: `${moment(dateString, "DD-MM-YY").format("dddd")} at ${moment(time, "HH:mm").format("ha")} vs. ${teamAgainst} on ${court}`,
   };
 }
 
