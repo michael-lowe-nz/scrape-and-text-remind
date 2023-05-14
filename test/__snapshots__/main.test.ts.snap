@@ -20,7 +20,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "94299e36ea64de6723aa1a629bcadc46071229b2a286601c318b85c8253b6eca.zip",
+          "S3Key": "75b3a3fd25670f0f25d5251d0fbfc33eba47e5edfb4d00ad1e50fa746378df9a.zip",
         },
         "Environment": {
           "Variables": {
@@ -28,6 +28,7 @@ exports[`Snapshot 1`] = `
             "SNS_TOPIC_ARN": {
               "Ref": "TestTeam2Alerts2BE53530",
             },
+            "TZ": "Pacific/Auckland",
           },
         },
         "Handler": "index.handler",
@@ -38,6 +39,7 @@ exports[`Snapshot 1`] = `
           ],
         },
         "Runtime": "nodejs18.x",
+        "Timeout": 5,
         "TracingConfig": {
           "Mode": "Active",
         },
@@ -129,7 +131,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "94299e36ea64de6723aa1a629bcadc46071229b2a286601c318b85c8253b6eca.zip",
+          "S3Key": "75b3a3fd25670f0f25d5251d0fbfc33eba47e5edfb4d00ad1e50fa746378df9a.zip",
         },
         "Environment": {
           "Variables": {
@@ -137,6 +139,7 @@ exports[`Snapshot 1`] = `
             "SNS_TOPIC_ARN": {
               "Ref": "TestTeamAlerts58363266",
             },
+            "TZ": "Pacific/Auckland",
           },
         },
         "Handler": "index.handler",
@@ -147,6 +150,7 @@ exports[`Snapshot 1`] = `
           ],
         },
         "Runtime": "nodejs18.x",
+        "Timeout": 5,
         "TracingConfig": {
           "Mode": "Active",
         },

@@ -1,6 +1,13 @@
 import cheerio from "cheerio";
 import moment from "moment";
 
+const columnMapping: any = {
+  1: "Date",
+  2: "Time",
+  3: "Court",
+  6: "TeamAgainst",
+};
+
 export function getThisWeeksGameFromHtml(html: any) {
   const $ = cheerio.load(html);
 
@@ -10,7 +17,7 @@ export function getThisWeeksGameFromHtml(html: any) {
   const tableData: any = [];
 
   // Iterate over each row of the table using the find and each methods
-  table.find("tr").each((i, row) => {
+  table.find("tr").each((_i, row) => {
     // Initialize an empty object to store the row data
     const rowData: any = {};
 
@@ -29,6 +36,7 @@ export function getThisWeeksGameFromHtml(html: any) {
   const oneWeekFromNow = moment().add(6, "days");
   const now = moment();
 
+  // Remove the top two rows, they are junk
   tableData.splice(0, 2);
   const cleaned = tableData.map((row: any) => {
     const keys = Object.keys(row);
@@ -48,4 +56,38 @@ export function getThisWeeksGameFromHtml(html: any) {
     return gameDate.isBetween(now, oneWeekFromNow);
   });
   return correct;
+}
+
+export function getDataStructureFromHTML(html: string) {
+  const $ = cheerio.load(html);
+
+  const table = $("tbody");
+
+  // Initialize an empty array to store the table data
+  const tableData: any = [];
+
+  // Iterate over each row of the table using the find and each methods
+  table.find("tr").each((index, row) => {
+    // Initialize an empty object to store the row data
+    const rowData: any = {};
+
+    // Iterate over each cell of the row using the find and each methods
+    if (index === 0 || index === 1) {
+      return;
+    }
+
+    $(row)
+      .find("td")
+      .each((cellIndex, cell) => {
+        const key = columnMapping[cellIndex];
+        if (key) {
+          rowData[key] = $(cell).text().trim();
+        }
+      });
+
+    // Add the row data to the table data array
+    tableData.push(rowData);
+  });
+
+  return tableData;
 }

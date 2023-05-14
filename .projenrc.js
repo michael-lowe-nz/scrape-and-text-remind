@@ -14,6 +14,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "cheerio@latest",
     "@types/cheerio",
     "@types/axios",
+    "@types/aws-lambda",
     "axios",
     "moment",
   ] /* Runtime dependencies of this module. */,
