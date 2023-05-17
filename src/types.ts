@@ -12,5 +12,4 @@ export type Game = {
   time: string;
   court: string;
   teamAgainst: string;
-  gameInfo: any;
 };

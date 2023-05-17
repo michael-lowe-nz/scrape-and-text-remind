@@ -1,5 +1,5 @@
 import cheerio from "cheerio";
-import moment from "moment";
+import moment, { Moment } from "moment";
 import { Game } from "../types";
 
 const columnMapping: any = {
@@ -9,32 +9,30 @@ const columnMapping: any = {
   6: "teamAgainst",
 };
 
-export function getThisWeeksGameFromHtml(html: any) {
-  const games = getDataStructureFromHTML(html);
-
-  const oneWeekFromNow = moment().add(6, "days");
-  const now = moment();
-
+export function getNextGameAfterDate(
+  games: Array<Game>,
+  date: Moment
+): Game | null {
+  const oneWeekFromDate = date.clone().add(6, "days");
   const thisWeeksGame = games.find((game: Game) => {
     const gameDate = moment(game.dateString, "DD-MM-YY");
-    return gameDate.isBetween(now, oneWeekFromNow);
+    return gameDate.isBetween(date, oneWeekFromDate);
   });
 
-  const { dateString, time, teamAgainst, court } = thisWeeksGame;
-
-  return {
-    ...thisWeeksGame,
-    // eslint-disable-next-line prettier/prettier
-    // prettier-ignore
-    gameInfo: `${moment(dateString, "DD-MM-YY").format("dddd")} at ${moment(time, "HH:mm").format("ha")} vs. ${teamAgainst} on ${court}`,
-  };
+  if (thisWeeksGame) {
+    return thisWeeksGame;
+  } else {
+    return null;
+  }
 }
-
-export function getDataStructureFromHTML(html: string) {
+/**
+ * Returns an array of games given the appropriate scraped HTML
+ * @param html
+ * @returns Array<Game>
+ */
+export function extractGamesFromHTML(html: string): Array<Game> {
   const $ = cheerio.load(html);
-
   const table = $("tbody");
-
   // Initialize an empty array to store the table data
   const tableData: Array<Game> = [];
 
@@ -61,10 +59,20 @@ export function getDataStructureFromHTML(html: string) {
     tableData.push(rowData);
   });
 
-  return tableData.map((row: any) => {
+  /** For the dateString, we take the day of the week off the end */
+  const games: Array<Game> = tableData.map((row: any) => {
     return {
       ...row,
       dateString: row.dateString.split(" ")[0],
     };
   });
+  return games;
+}
+
+export function getGameInfoFromGame(game: Game): string {
+  const day = moment(game.dateString, "DD-MM-YY").format("dddd");
+  const time = moment(game.time, "HH:mm").format("ha");
+  const { teamAgainst, court } = game;
+  const output = `${day} at ${time} vs. ${teamAgainst} on ${court}`;
+  return output;
 }
