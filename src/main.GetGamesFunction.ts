@@ -41,6 +41,6 @@ export const handler: Handler = async () => {
   const response = await client.send(new PublishCommand(params));
   return {
     statusCode: 200,
-    body: JSON.stringify({ snsResponse: response, message: Message }),
+    body: { snsResponse: response, message: Message },
   };
 };
