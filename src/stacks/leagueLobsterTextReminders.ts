@@ -5,11 +5,13 @@ import { Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { SmsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
+import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import { Construct } from "constructs";
 import { Contacts, Team } from "../types";
 
 export interface LeagueLobsterTextReminderProps extends StackProps {
   Contacts: Contacts;
+  UseTestNumber: boolean;
 }
 
 export class LeagueLobsterTextReminder extends Stack {
@@ -26,6 +28,17 @@ export class LeagueLobsterTextReminder extends Stack {
       description: "KMS key for encrypting the objects in an S3 bucket",
       enableKeyRotation: true,
     });
+
+    const testPhoneNumberParameter = new StringParameter(
+      this,
+      "testPhoneNumberParameter",
+      {
+        parameterName: "TestPhoneNumber",
+        stringValue: "",
+      }
+    );
+
+    const contactsParameter = new StringParameter(this, "contactsParameter");
 
     props.Contacts.Teams.forEach((team: Team) => {
       const teamTopic = new Topic(this, `${team.Name}Alerts`, {
