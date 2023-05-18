@@ -7,8 +7,8 @@ import {
   extractGamesFromHTML,
   getNextGameAfterDate,
   getGameInfoFromGame,
-} from "./lib/gamesFunctions";
-import { Game } from "./types";
+} from "../lib/gamesFunctions";
+import { Game } from "../types";
 
 export const handler: Handler = async () => {
   const client = new SNSClient({ region: process.env.AWS_REGION });

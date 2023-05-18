@@ -4,10 +4,10 @@ import {
   extractGamesFromHTML,
   getGameInfoFromGame,
   getNextGameAfterDate,
-} from "./lib/gamesFunctions";
-import { Game } from "./types";
+} from "./gamesFunctions";
+import { Game } from "../types";
 
-const html = readFileSync("./src/sample-table.html", "utf-8");
+const html = readFileSync("./src/lib/sample-table.html", "utf-8");
 
 test("Test the extract of games data from HTML function", () => {
   const expected: Game = {
