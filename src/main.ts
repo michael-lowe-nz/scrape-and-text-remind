@@ -48,6 +48,10 @@ class TextRemindersStage extends Stage {
 const pipeline = new GitHubWorkflow(app, "Pipeline", {
   synth: new ShellStep("Build", {
     commands: ["yarn", "yarn build"],
+    env: {
+      CONTACTS_YML: "${{ vars.CONTACTS_YML }}",
+      TEST_PHONE_NUMBER: "${{ vars.TEST_PHONE_NUMBER }}",
+    },
   }),
   awsCreds: AwsCredentials.fromOpenIdConnect({
     gitHubActionRoleArn:
@@ -72,6 +76,9 @@ const prodStage = new TextRemindersStage(app, "prod-stage", {
 
 pipeline.addStageWithGitHubOptions(devStage, {
   gitHubEnvironment: { name: "Test" },
+  jobSettings: {
+    if: "ENV=CONTACTS_YML",
+  },
 });
 
 pipeline.addStageWithGitHubOptions(prodStage, {
