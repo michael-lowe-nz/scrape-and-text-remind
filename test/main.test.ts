@@ -3,7 +3,7 @@ import { Template } from "aws-cdk-lib/assertions";
 import {
   LeagueLobsterTextReminder,
   LeagueLobsterTextReminderProps,
-} from "../src/lib/stacks/leagueLobsterTextReminders";
+} from "../src/stacks/leagueLobsterTextReminders";
 import { Contacts } from "../src/types";
 
 const testContacts: Contacts = {
