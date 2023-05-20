@@ -76,9 +76,6 @@ const prodStage = new TextRemindersStage(app, "prod-stage", {
 
 pipeline.addStageWithGitHubOptions(devStage, {
   gitHubEnvironment: { name: "Test" },
-  jobSettings: {
-    if: "ENV=CONTACTS_YML",
-  },
 });
 
 pipeline.addStageWithGitHubOptions(prodStage, {

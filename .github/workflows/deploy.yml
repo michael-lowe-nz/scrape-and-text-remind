@@ -116,7 +116,6 @@ jobs:
         run: /bin/bash ./cdk.out/publish-Assets-FileAsset3-step.sh
   dev-stage-TextReminders-Deploy:
     name: Deploy devstageTextRemindersE468C0A1
-    if: ENV=CONTACTS_YML
     permissions:
       contents: read
       id-token: write
