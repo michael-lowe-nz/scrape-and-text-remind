@@ -3,8 +3,8 @@ import { Template } from "aws-cdk-lib/assertions";
 import {
   LeagueLobsterTextReminder,
   LeagueLobsterTextReminderProps,
-} from "../src/stacks/leagueLobsterTextReminders";
-import { Contacts } from "../src/types";
+} from "./leagueLobsterTextReminders";
+import { Contacts } from "../types";
 
 const testContacts: Contacts = {
   Teams: [
@@ -41,7 +41,7 @@ const TestProps: LeagueLobsterTextReminderProps = {
   Contacts: testContacts,
 };
 
-test("Snapshot", () => {
+test("Snapshot test of the Text Reminder Stack", () => {
   const app = new App();
   const stack = new LeagueLobsterTextReminder(app, "test", TestProps);
 
@@ -71,4 +71,13 @@ test("Test that the Text reminder stack builds a lambda function to remind each 
   const stack = new LeagueLobsterTextReminder(app, "test", TestProps);
   const template = Template.fromStack(stack);
   expect(template.resourceCountIs("AWS::Lambda::Function", 2));
+});
+
+test("Test that an event bridge rule is created for each team", () => {
+  const app = new App();
+  const stack = new LeagueLobsterTextReminder(app, "test", TestProps);
+  const template = Template.fromStack(stack);
+  expect(
+    template.resourceCountIs("AWS::Events::Rule", testContacts.Teams.length)
+  );
 });
