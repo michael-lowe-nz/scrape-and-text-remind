@@ -7,6 +7,8 @@ import { Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { SmsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
+import * as stepfunctions from "aws-cdk-lib/aws-stepfunctions";
+import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
 import { Contacts, Team } from "../types";
 
@@ -72,6 +74,38 @@ export class LeagueLobsterTextReminder extends Stack {
           resources: [snsKey.keyArn],
         })
       );
+
+      const startWithLambda = stepfunctions.Chain.start(
+        new tasks.LambdaInvoke(this, `InvokeLambda1${team.Name}`, {
+          lambdaFunction: teamAlertFunction,
+          resultPath: "$.result",
+        })
+      );
+
+      const decideIfShouldSend = new stepfunctions.Choice(
+        this,
+        `ManualConfirmationFor${team.Name}`
+      )
+        .when(
+          stepfunctions.Condition.stringEquals("$.result.Payload", "CONFIRM"),
+          new tasks.LambdaInvoke(this, `InvokeLambda2${team.Name}`, {
+            lambdaFunction: teamAlertFunction,
+          })
+        )
+        .otherwise(
+          new stepfunctions.Wait(this, `WaitForConfirmation${team.Name}`, {
+            time: stepfunctions.WaitTime.duration(Duration.seconds(60)),
+          })
+        );
+
+      const definition = startWithLambda.next(decideIfShouldSend);
+
+      // Create a Step Funtion State Machine for each Team
+      new stepfunctions.StateMachine(this, `StateMachine${team.Name}`, {
+        definition,
+      });
+
+      // Add each player in the team to the topic
       team.Players.forEach((player: any) => {
         teamTopic.addSubscription(new SmsSubscription(player.Number));
       });
