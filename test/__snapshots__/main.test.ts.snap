@@ -263,6 +263,43 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::SNS::Subscription",
     },
+    "TestTeam2RuleAllowEventRuletestAlertTestTeam2Function3AFE01234D49C8F2": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "AlertTestTeam2Function6D2517FA",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "TestTeam2RuleB81240E8",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "TestTeam2RuleB81240E8": {
+      "Properties": {
+        "ScheduleExpression": "cron(30 8 ? * SUN *)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "AlertTestTeam2Function6D2517FA",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
     "TestTeamAlerts17FF09393": {
       "Properties": {
         "Endpoint": "+1",
@@ -293,6 +330,43 @@ exports[`Snapshot 1`] = `
         },
       },
       "Type": "AWS::SNS::Topic",
+    },
+    "TestTeamRule8F21550D": {
+      "Properties": {
+        "ScheduleExpression": "cron(30 8 ? * SUN *)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "AlertTestTeamFunction3257EF79",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "TestTeamRuleAllowEventRuletestAlertTestTeamFunction959B320A6E3ED324": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "AlertTestTeamFunction3257EF79",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "TestTeamRule8F21550D",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
     "snskmskey1F6AC6F6": {
       "DeletionPolicy": "Delete",
