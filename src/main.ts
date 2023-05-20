@@ -5,7 +5,7 @@ import { AwsCredentials, GitHubWorkflow } from "cdk-pipelines-github";
 import { Construct } from "constructs";
 import { load } from "js-yaml";
 import ContactData from "./contacts";
-import { LeagueLobsterTextReminder } from "./lib/stacks/leagueLobsterTextReminders";
+import { LeagueLobsterTextReminder } from "./stacks/leagueLobsterTextReminders";
 import { Contacts } from "./types";
 
 const devEnv = {
