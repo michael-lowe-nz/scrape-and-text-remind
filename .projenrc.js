@@ -1,4 +1,4 @@
-const { awscdk } = require("projen");
+const { awscdk, Project, ProjectType } = require("projen");
 const project = new awscdk.AwsCdkTypeScriptApp({
   cdkVersion: "2.1.0",
   defaultReleaseBranch: "main",
@@ -28,6 +28,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   githubOptions: {
     pullRequestLint: false,
   },
+  vscode: true,
   pullRequestTemplateContents: [
     `## Description`,
     `<!--- Describe your changes in detail -->`,
