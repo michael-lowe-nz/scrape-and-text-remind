@@ -37,6 +37,11 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     `- [ ] My change requires a change to the documentation.`,
     `- [ ] I have updated the documentation accordingly.`,
   ],
+  releaseBranches: {
+    "0.x": {
+      majorVersion: 0,
+    },
+  },
 });
 
 project.synth();
