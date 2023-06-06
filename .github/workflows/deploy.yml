@@ -145,7 +145,7 @@ jobs:
           role-to-assume: arn:aws:iam::825411367293:role/cdk-hnb659fds-deploy-role-825411367293-ap-southeast-2
           role-external-id: Pipeline
       - id: Deploy
-        uses: aws-actions/aws-cloudformation-github-deploy@v1.1.0
+        uses: aws-actions/aws-cloudformation-github-deploy@v1.2.0
         with:
           name: dev-stage-TextReminders
           template: https://cdk-hnb659fds-assets-825411367293-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
@@ -184,7 +184,7 @@ jobs:
           role-to-assume: arn:aws:iam::825411367293:role/cdk-hnb659fds-deploy-role-825411367293-ap-southeast-2
           role-external-id: Pipeline
       - id: Deploy
-        uses: aws-actions/aws-cloudformation-github-deploy@v1.1.0
+        uses: aws-actions/aws-cloudformation-github-deploy@v1.2.0
         with:
           name: prod-stage-TextReminders
           template: https://cdk-hnb659fds-assets-825411367293-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
