@@ -6,6 +6,7 @@ import { Construct } from "constructs";
 import { load } from "js-yaml";
 import ContactData from "./contacts";
 import { LeagueLobsterTextReminder } from "./stacks/leagueLobsterTextReminders";
+import { OIDCSetup } from "./stacks/oidcSetup";
 import { Contacts } from "./types";
 
 const devEnv = {
@@ -14,6 +15,8 @@ const devEnv = {
 };
 
 const app = new App();
+
+new OIDCSetup(app, "oidc-setup");
 
 let localContacts: any;
 let prodContacts: any;
