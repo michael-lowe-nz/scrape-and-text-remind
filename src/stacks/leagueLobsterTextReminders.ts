@@ -8,6 +8,7 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { SmsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
+import { IntegrationTests } from "../constructs/integrationTests";
 import { Contacts, Team } from "../types";
 
 export interface LeagueLobsterTextReminderProps extends StackProps {
@@ -75,6 +76,11 @@ export class LeagueLobsterTextReminder extends Stack {
       team.Players.forEach((player: any) => {
         teamTopic.addSubscription(new SmsSubscription(player.Number));
       });
+    });
+
+    new IntegrationTests(this, "integrationTest", {
+      testEntry: "sup",
+      timeout: Duration.seconds(3),
     });
   }
 }

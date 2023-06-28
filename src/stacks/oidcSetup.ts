@@ -19,6 +19,10 @@ export class OIDCSetup extends Stack {
       {
         url: "https://token.actions.githubusercontent.com",
         clientIds: ["sts.amazonaws.com"],
+        thumbprints: [
+          "6938fd4d98bab03faadb97b34396831e3780aea1",
+          "1c58a3a8518e8759bf075b76b750d4f2df264fcd",
+        ],
       }
     );
 
@@ -28,8 +32,6 @@ export class OIDCSetup extends Stack {
         {
           StringEquals: {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-            // "token.actions.githubusercontent.com:sub":
-            //   "repo:michael-lowe-nz/league-lobster-text-reminders:ref:refs/heads/main",
           },
           StringLike: {
             "token.actions.githubusercontent.com:sub":
