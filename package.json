@@ -47,7 +47,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@aws-sdk/client-sns": "^3.370.0",
+    "@aws-sdk/client-sns": "^3.377.0",
     "@types/aws-lambda": "^8.10.119",
     "@types/axios": "^0.14.0",
     "@types/cheerio": "^0.22.31",
