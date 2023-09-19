@@ -56,7 +56,7 @@
     "axios": "^1.4.0",
     "cdk-pipelines-github": "^0.4.103",
     "cheerio": "latest",
-    "constructs": "^10.0.5",
+    "constructs": "^10.2.70",
     "js-yaml": "^4.1.0",
     "moment": "^2.29.4"
   },
