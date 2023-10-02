@@ -1,8 +1,6 @@
-import { Duration, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
+import { Duration, Stack, StackProps } from "aws-cdk-lib";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
-import { PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { Key } from "aws-cdk-lib/aws-kms";
 import { Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Topic } from "aws-cdk-lib/aws-sns";
@@ -22,16 +20,8 @@ export class LeagueLobsterTextReminder extends Stack {
   ) {
     super(scope, id, props);
 
-    const snsKey = new Key(this, "sns-kms-key", {
-      removalPolicy: RemovalPolicy.DESTROY,
-      pendingWindow: Duration.days(7),
-      description: "KMS key for encrypting the objects in an S3 bucket",
-      enableKeyRotation: true,
-    });
-
     props.Contacts.Teams.forEach((team: Team) => {
       const teamTopic = new Topic(this, `${team.Name}Alerts`, {
-        masterKey: snsKey,
       });
 
       const teamAlertFunction = new NodejsFunction(
@@ -66,12 +56,7 @@ export class LeagueLobsterTextReminder extends Stack {
 
       // Allow each function to publish to the topic
       teamTopic.grantPublish(teamAlertFunction);
-      teamAlertFunction.addToRolePolicy(
-        new PolicyStatement({
-          actions: ["kms:GenerateDataKey", "kms:Decrypt"],
-          resources: [snsKey.keyArn],
-        })
-      );
+
       team.Players.forEach((player: any) => {
         teamTopic.addSubscription(new SmsSubscription(player.Number));
       });
