@@ -9,17 +9,28 @@ This repository contains a CDK stack that stands up infrastructure that will tex
 
 You'll need to have AWS credentials, and a target AWS account.
 
-## 1. Bootstrap the account
+I usually like to make these things account agnostic, that is, anyone can pick it up and deploy it where they want.
+This however is at odds with how CDK generally wants to work. It really wants you to set specific account numbers.
+Hence, I've decided to make this operate on a multi account strategy setup.
+
+## 1. Bootstrap the accounts
 
 ```bash
 yarn
-npx cdk bootstrap --profile yourprofile
+
+npx cdk bootstrap aws://653221278763/ap-southeast-2 --profile textreminders-test
+npx cdk bootstrap aws://476203294330/ap-southeast-2 --profile textreminders-dev
+npx cdk bootstrap aws://365979456435/ap-southeast-2 --profile textreminders-prod
 ```
 
-## 2. Deploy the OIDCSetup stack into the target account
+## 2. Deploy the OIDCSetup stack into the accounts
+
+This could be done with a separate deploy account that has trust to the 3 workload accounts. But for now, we are deploying the OIDC stack to each account.
 
 ```bash
-npx cdk deploy --profile yourprofile
+npx cdk deploy --profile textreminders-dev
+npx cdk deploy --profile textreminders-test
+npx cdk deploy --profile textreminders-prod
 ```
 
 ## 3. Generate the Github Action for Deployment

@@ -9,8 +9,18 @@ import { LeagueLobsterTextReminder } from "./stacks/leagueLobsterTextReminders";
 import { OIDCSetup } from "./stacks/oidcSetup";
 import { Contacts } from "./types";
 
+const testEnv = {
+  account: "653221278763",
+  region: "ap-southeast-2",
+};
+
 const devEnv = {
-  account: "825411367293",
+  account: "476203294330",
+  region: "ap-southeast-2",
+};
+
+const prodEnv = {
+  account: "365979456435",
   region: "ap-southeast-2",
 };
 
@@ -62,22 +72,22 @@ const pipeline = new GitHubWorkflow(app, "Pipeline", {
   }),
 });
 
-const devStage = new TextRemindersStage(app, "dev-stage", {
+new TextRemindersStage(app, "dev-stage", {
   env: devEnv,
   contacts: localContacts,
 });
 
-new TextRemindersStage(app, "test-stage", {
-  env: devEnv,
+const testStage = new TextRemindersStage(app, "test-stage", {
+  env: testEnv,
   contacts: ContactData.Test,
 });
 
 const prodStage = new TextRemindersStage(app, "prod-stage", {
-  env: devEnv,
+  env: prodEnv,
   contacts: prodContacts,
 });
 
-pipeline.addStageWithGitHubOptions(devStage, {
+pipeline.addStageWithGitHubOptions(testStage, {
   gitHubEnvironment: { name: "Test" },
 });
 

@@ -21,8 +21,7 @@ export class LeagueLobsterTextReminder extends Stack {
     super(scope, id, props);
 
     props.Contacts.Teams.forEach((team: Team) => {
-      const teamTopic = new Topic(this, `${team.Name}Alerts`, {
-      });
+      const teamTopic = new Topic(this, `${team.Name}Alerts`, {});
 
       const teamAlertFunction = new NodejsFunction(
         this,

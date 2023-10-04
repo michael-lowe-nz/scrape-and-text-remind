@@ -114,8 +114,8 @@ jobs:
       - id: Publish
         name: Publish Assets-FileAsset3
         run: /bin/bash ./cdk.out/publish-Assets-FileAsset3-step.sh
-  dev-stage-TextReminders-Deploy:
-    name: Deploy devstageTextRemindersE468C0A1
+  test-stage-TextReminders-Deploy:
+    name: Deploy teststageTextRemindersCA2DC144
     permissions:
       contents: read
       id-token: write
@@ -142,16 +142,16 @@ jobs:
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
-          role-to-assume: arn:aws:iam::825411367293:role/cdk-hnb659fds-deploy-role-825411367293-ap-southeast-2
+          role-to-assume: arn:aws:iam::653221278763:role/cdk-hnb659fds-deploy-role-653221278763-ap-southeast-2
           role-external-id: Pipeline
       - id: Deploy
         uses: aws-actions/aws-cloudformation-github-deploy@v1.2.0
         with:
-          name: dev-stage-TextReminders
-          template: https://cdk-hnb659fds-assets-825411367293-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
+          name: test-stage-TextReminders
+          template: https://cdk-hnb659fds-assets-653221278763-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
             needs.Assets-FileAsset1.outputs.asset-hash }}.json
           no-fail-on-empty-changeset: "1"
-          role-arn: arn:aws:iam::825411367293:role/cdk-hnb659fds-cfn-exec-role-825411367293-ap-southeast-2
+          role-arn: arn:aws:iam::653221278763:role/cdk-hnb659fds-cfn-exec-role-653221278763-ap-southeast-2
   prod-stage-TextReminders-Deploy:
     name: Deploy prodstageTextReminders32176EAB
     permissions:
@@ -162,7 +162,7 @@ jobs:
       - Build-Build
       - Assets-FileAsset3
       - Assets-FileAsset2
-      - dev-stage-TextReminders-Deploy
+      - test-stage-TextReminders-Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Authenticate Via OIDC Role
@@ -181,13 +181,13 @@ jobs:
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
-          role-to-assume: arn:aws:iam::825411367293:role/cdk-hnb659fds-deploy-role-825411367293-ap-southeast-2
+          role-to-assume: arn:aws:iam::365979456435:role/cdk-hnb659fds-deploy-role-365979456435-ap-southeast-2
           role-external-id: Pipeline
       - id: Deploy
         uses: aws-actions/aws-cloudformation-github-deploy@v1.2.0
         with:
           name: prod-stage-TextReminders
-          template: https://cdk-hnb659fds-assets-825411367293-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
+          template: https://cdk-hnb659fds-assets-365979456435-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
             needs.Assets-FileAsset3.outputs.asset-hash }}.json
           no-fail-on-empty-changeset: "1"
-          role-arn: arn:aws:iam::825411367293:role/cdk-hnb659fds-cfn-exec-role-825411367293-ap-southeast-2
+          role-arn: arn:aws:iam::365979456435:role/cdk-hnb659fds-cfn-exec-role-365979456435-ap-southeast-2
