@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sns": "^3.423.0",
-    "@types/aws-lambda": "^8.10.122",
+    "@types/aws-lambda": "^8.10.123",
     "@types/axios": "^0.14.0",
     "@types/cheerio": "^0.22.32",
     "@types/js-yaml": "4.0.5",
