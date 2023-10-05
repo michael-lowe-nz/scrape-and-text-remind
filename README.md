@@ -18,19 +18,18 @@ Hence, I've decided to make this operate on a multi account strategy setup.
 ```bash
 yarn
 
-npx cdk bootstrap aws://653221278763/ap-southeast-2 --profile textreminders-test
-npx cdk bootstrap aws://476203294330/ap-southeast-2 --profile textreminders-dev
-npx cdk bootstrap aws://365979456435/ap-southeast-2 --profile textreminders-prod
+npx cdk bootstrap aws://746512892315/ap-southeast-2 --profile deploy
+npx cdk bootstrap aws://653221278763/ap-southeast-2 --trust 746512892315 --cloudformation-execution-policies "arn:aws:iam::aws:policy/AdministratorAccess" --profile textreminders-test
+npx cdk bootstrap aws://476203294330/ap-southeast-2 --trust 746512892315 --cloudformation-execution-policies "arn:aws:iam::aws:policy/AdministratorAccess" --profile textreminders-dev
+npx cdk bootstrap aws://365979456435/ap-southeast-2 --trust 746512892315 --cloudformation-execution-policies "arn:aws:iam::aws:policy/AdministratorAccess" --profile textreminders-prod
 ```
 
-## 2. Deploy the OIDCSetup stack into the accounts
+## 2. Deploy the OIDCSetup stack into the deploy account
 
 This could be done with a separate deploy account that has trust to the 3 workload accounts. But for now, we are deploying the OIDC stack to each account.
 
 ```bash
-npx cdk deploy --profile textreminders-dev
-npx cdk deploy --profile textreminders-test
-npx cdk deploy --profile textreminders-prod
+npx cdk deploy --profile deploy
 ```
 
 ## 3. Generate the Github Action for Deployment
