@@ -56,6 +56,6 @@ export class OIDCSetup extends Stack {
       },
     });
     this.role = deployRole;
-    // this.exportValue(deployRole.roleArn);
+    this.exportValue(deployRole.roleArn);
   }
 }
