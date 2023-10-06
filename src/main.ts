@@ -67,8 +67,7 @@ const pipeline = new GitHubWorkflow(app, "Pipeline", {
     },
   }),
   awsCreds: AwsCredentials.fromOpenIdConnect({
-    gitHubActionRoleArn:
-      "arn:aws:iam::746512892315:role/oidc-setup-GithubDeployRoleB0CF66A5-14BDNAHKQJLLT",
+    gitHubActionRoleArn: "arn:aws:iam::746512892315:role/GitHubActionRole",
   }),
 });
 
