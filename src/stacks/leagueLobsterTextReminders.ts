@@ -1,13 +1,13 @@
 import { Duration, Stack, StackProps } from "aws-cdk-lib";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
+import { Alias } from "aws-cdk-lib/aws-kms";
 import { Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { SmsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
 import { Contacts, Team } from "../types";
-import { Alias } from "aws-cdk-lib/aws-kms";
 
 export interface LeagueLobsterTextReminderProps extends StackProps {
   Contacts: Contacts;
@@ -21,11 +21,11 @@ export class LeagueLobsterTextReminder extends Stack {
   ) {
     super(scope, id, props);
 
-    const snsKey = Alias.fromAliasName(this, "aws-sns-key", 'aws/sns');
+    const snsKey = Alias.fromAliasName(this, "aws-sns-key", "aws/sns");
 
     props.Contacts.Teams.forEach((team: Team) => {
       const teamTopic = new Topic(this, `${team.Name}Alerts`, {
-        masterKey: snsKey
+        masterKey: snsKey,
       });
 
       const teamAlertFunction = new NodejsFunction(
