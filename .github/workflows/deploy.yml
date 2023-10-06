@@ -54,7 +54,7 @@ jobs:
           aws-region: us-west-2
           role-duration-seconds: 1800
           role-skip-session-tagging: true
-          role-to-assume: arn:aws:iam::746512892315:role/oidc-setup-GithubDeployRoleB0CF66A5-14BDNAHKQJLLT
+          role-to-assume: arn:aws:iam::746512892315:role/GitHubActionRole
       - id: Publish
         name: Publish Assets-FileAsset1
         run: /bin/bash ./cdk.out/publish-Assets-FileAsset1-step.sh
@@ -82,7 +82,7 @@ jobs:
           aws-region: us-west-2
           role-duration-seconds: 1800
           role-skip-session-tagging: true
-          role-to-assume: arn:aws:iam::746512892315:role/oidc-setup-GithubDeployRoleB0CF66A5-14BDNAHKQJLLT
+          role-to-assume: arn:aws:iam::746512892315:role/GitHubActionRole
       - id: Publish
         name: Publish Assets-FileAsset2
         run: /bin/bash ./cdk.out/publish-Assets-FileAsset2-step.sh
@@ -110,7 +110,7 @@ jobs:
           aws-region: us-west-2
           role-duration-seconds: 1800
           role-skip-session-tagging: true
-          role-to-assume: arn:aws:iam::746512892315:role/oidc-setup-GithubDeployRoleB0CF66A5-14BDNAHKQJLLT
+          role-to-assume: arn:aws:iam::746512892315:role/GitHubActionRole
       - id: Publish
         name: Publish Assets-FileAsset3
         run: /bin/bash ./cdk.out/publish-Assets-FileAsset3-step.sh
@@ -132,7 +132,7 @@ jobs:
           aws-region: ap-southeast-2
           role-duration-seconds: 1800
           role-skip-session-tagging: true
-          role-to-assume: arn:aws:iam::746512892315:role/oidc-setup-GithubDeployRoleB0CF66A5-14BDNAHKQJLLT
+          role-to-assume: arn:aws:iam::746512892315:role/GitHubActionRole
       - name: Assume CDK Deploy Role
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
@@ -171,7 +171,7 @@ jobs:
           aws-region: ap-southeast-2
           role-duration-seconds: 1800
           role-skip-session-tagging: true
-          role-to-assume: arn:aws:iam::746512892315:role/oidc-setup-GithubDeployRoleB0CF66A5-14BDNAHKQJLLT
+          role-to-assume: arn:aws:iam::746512892315:role/GitHubActionRole
       - name: Assume CDK Deploy Role
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
