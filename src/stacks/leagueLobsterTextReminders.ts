@@ -7,6 +7,7 @@ import { Topic } from "aws-cdk-lib/aws-sns";
 import { SmsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
 import { Contacts, Team } from "../types";
+import { Alias } from "aws-cdk-lib/aws-kms";
 
 export interface LeagueLobsterTextReminderProps extends StackProps {
   Contacts: Contacts;
@@ -20,8 +21,18 @@ export class LeagueLobsterTextReminder extends Stack {
   ) {
     super(scope, id, props);
 
+    // const snsKey = new Key(this, "sns-kms-key", {
+    //   removalPolicy: RemovalPolicy.DESTROY,
+    //   pendingWindow: Duration.days(7),
+    //   description: "KMS key for encrypting the objects in an S3 bucket",
+    //   enableKeyRotation: true,
+    // });
+    const snsKey = Alias.fromAliasName(this, "aws-sns-key", 'aws/sns');
+
     props.Contacts.Teams.forEach((team: Team) => {
-      const teamTopic = new Topic(this, `${team.Name}Alerts`, {});
+      const teamTopic = new Topic(this, `${team.Name}Alerts`, {
+        masterKey: snsKey
+      });
 
       const teamAlertFunction = new NodejsFunction(
         this,
