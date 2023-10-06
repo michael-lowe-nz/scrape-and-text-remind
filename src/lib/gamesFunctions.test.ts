@@ -44,3 +44,9 @@ test("Test that the game info format can be retrieved from a game", () => {
   const result = getGameInfoFromGame(game);
   expect(result).toEqual(expected);
 });
+
+test("Test that the game info format can be retrieved when there are no teams", () => {
+  const htmlNoTeams = readFileSync("./src/lib/sample-table-blank-teams.html", "utf-8");
+  const games: Array<Game> = extractGamesFromHTML(htmlNoTeams);
+  expect(Array.isArray(games)).toBeTruthy();
+})
