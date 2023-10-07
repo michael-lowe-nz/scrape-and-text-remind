@@ -51,7 +51,7 @@
     "@types/aws-lambda": "^8.10.124",
     "@types/axios": "^0.14.0",
     "@types/cheerio": "^0.22.32",
-    "@types/js-yaml": "4.0.5",
+    "@types/js-yaml": "4.0.6",
     "aws-cdk-lib": "^2.1.0",
     "axios": "^1.5.1",
     "cdk-pipelines-github": "^0.4.103",
