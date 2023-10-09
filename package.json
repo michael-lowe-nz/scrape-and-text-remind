@@ -57,6 +57,7 @@
     "cdk-pipelines-github": "^0.4.103",
     "cheerio": "latest",
     "constructs": "^10.0.5",
+    "jest-html-reporter": "^3.10.2",
     "js-yaml": "^4.1.0",
     "moment": "^2.29.4"
   },
