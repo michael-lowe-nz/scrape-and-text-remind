@@ -10,6 +10,8 @@ const testContacts: Contacts = {
   Teams: [
     {
       Name: "Test Team",
+      ScheduleURL:
+        "https://websites.mygameday.app/team_info.cgi?c=0-2854-0-633233-27116561&a=SFIX",
       Players: [
         {
           Name: "Test Player",
@@ -23,6 +25,8 @@ const testContacts: Contacts = {
     },
     {
       Name: "Test Team 2",
+      ScheduleURL:
+        "https://websites.mygameday.app/team_info.cgi?c=0-2854-0-633233-27116561&a=SFIX",
       Players: [
         {
           Name: "Test Player",

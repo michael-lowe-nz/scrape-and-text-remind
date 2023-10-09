@@ -5,7 +5,8 @@ export default {
     Teams: [
       {
         Name: "Los Angeles Lakers",
-        ScheduleURL: "https://websites.mygameday.app/team_info.cgi?c=0-2854-0-633233-27116561&a=SFIX",
+        ScheduleURL:
+          "https://websites.mygameday.app/team_info.cgi?c=0-2854-0-633233-27116561&a=SFIX",
         Players: [
           {
             Name: "Shaquille ONeal",

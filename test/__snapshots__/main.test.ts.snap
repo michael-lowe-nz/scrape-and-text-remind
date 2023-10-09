@@ -20,11 +20,12 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "246a6a67985d51dd778224cf2c06ecfe578542a34a878e79f512761fb77cc9fd.zip",
+          "S3Key": "92bc77498ebaf10aef21e5a285682ab7bae1eed978a063d49f5fea134dfa2609.zip",
         },
         "Environment": {
           "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "SCHEDULE_URL": "https://websites.mygameday.app/team_info.cgi?c=0-2854-0-633233-27116561&a=SFIX",
             "SNS_TOPIC_ARN": {
               "Ref": "TestTeam2Alerts2BE53530",
             },
@@ -118,11 +119,12 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "246a6a67985d51dd778224cf2c06ecfe578542a34a878e79f512761fb77cc9fd.zip",
+          "S3Key": "92bc77498ebaf10aef21e5a285682ab7bae1eed978a063d49f5fea134dfa2609.zip",
         },
         "Environment": {
           "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "SCHEDULE_URL": "https://websites.mygameday.app/team_info.cgi?c=0-2854-0-633233-27116561&a=SFIX",
             "SNS_TOPIC_ARN": {
               "Ref": "TestTeamAlerts58363266",
             },
@@ -224,7 +226,7 @@ exports[`Snapshot 1`] = `
               {
                 "Ref": "AWS::AccountId",
               },
-              ":aws/sns",
+              ":alias/aws/sns",
             ],
           ],
         },
@@ -326,7 +328,7 @@ exports[`Snapshot 1`] = `
               {
                 "Ref": "AWS::AccountId",
               },
-              ":aws/sns",
+              ":alias/aws/sns",
             ],
           ],
         },

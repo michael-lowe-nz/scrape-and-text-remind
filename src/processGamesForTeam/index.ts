@@ -28,8 +28,7 @@ export const handler: Handler = async () => {
   const nextGame: Game | null = getNextGameAfterDate(games, moment());
 
   if (!nextGame) {
-
-    const Message = `No game this week... relax 😴`
+    const Message = `No game this week... relax 😴`;
     const params = {
       Message,
       TopicArn: process.env.SNS_TOPIC_ARN,
