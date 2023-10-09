@@ -5,6 +5,7 @@ export type Contacts = {
 export type Team = {
   Name: string;
   Players: Array<{ Name: string; Number: string }>;
+  ScheduleURL: string;
 };
 
 export type Game = {

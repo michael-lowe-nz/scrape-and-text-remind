@@ -1,10 +1,12 @@
 ---
 Teams:
   - Name: Gen-X
+    ScheduleURL: "https://websites.mygameday.app/team_info.cgi?c=0-2854-0-633233-27116561&a=SFIX"
     Players:
       - Name: Michael
         Number: "+18005550100"
   - Name: "Craig's Team"
+    ScheduleURL: "https://websites.mygameday.app/team_info.cgi?c=0-2854-0-633233-27116561&a=SFIX"
     Players:
       - Name: "Craig"
         Number: "+18005550100"

@@ -59,13 +59,21 @@ export function extractGamesFromHTML(html: string): Array<Game> {
     tableData.push(rowData);
   });
 
+  console.log("TABLE DATA", tableData);
+
   /** For the dateString, we take the day of the week off the end */
-  const games: Array<Game> = tableData.map((row: any) => {
-    return {
-      ...row,
-      dateString: row.dateString.split(" ")[0],
-    };
-  });
+  const games: Array<Game> = tableData
+    .filter((row) => {
+      return row?.dateString;
+    })
+    .map((row) => {
+      const dateString = row.dateString.split(" ")[0];
+      return {
+        ...row,
+        dateString,
+      };
+    });
+
   return games;
 }
 

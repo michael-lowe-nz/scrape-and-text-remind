@@ -21,7 +21,7 @@ export class LeagueLobsterTextReminder extends Stack {
   ) {
     super(scope, id, props);
 
-    const snsKey = Alias.fromAliasName(this, "aws-sns-key", "aws/sns");
+    const snsKey = Alias.fromAliasName(this, "aws-sns-key", "alias/aws/sns");
 
     props.Contacts.Teams.forEach((team: Team) => {
       const teamTopic = new Topic(this, `${team.Name}Alerts`, {
@@ -37,6 +37,7 @@ export class LeagueLobsterTextReminder extends Stack {
           environment: {
             SNS_TOPIC_ARN: teamTopic.topicArn,
             TZ: "Pacific/Auckland",
+            SCHEDULE_URL: team.ScheduleURL,
           },
           timeout: Duration.seconds(5),
           tracing: Tracing.ACTIVE,

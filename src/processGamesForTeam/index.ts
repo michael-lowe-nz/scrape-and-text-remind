@@ -10,19 +10,33 @@ import {
 } from "../lib/gamesFunctions";
 import { Game } from "../types";
 
+const url = process.env.SCHEDULE_URL;
+
 export const handler: Handler = async () => {
   const client = new SNSClient({ region: process.env.AWS_REGION });
 
   /**
    * @todo should be an environment variable
    */
-  const url = `https://websites.mygameday.app/team_info.cgi?c=0-2854-0-622183-27083591&a=SFIX`;
 
-  const requestResponse: any = await axios.get(url);
+  console.log("URL", url);
+
+  const requestResponse: any = await axios.get(url || "");
   const games: Array<Game> = extractGamesFromHTML(requestResponse.data);
+  console.log("GAMES:");
+  console.log(games);
   const nextGame: Game | null = getNextGameAfterDate(games, moment());
 
   if (!nextGame) {
+    const Message = `No game this week... relax 😴`;
+    const params = {
+      Message,
+      TopicArn: process.env.SNS_TOPIC_ARN,
+      DefaultSMSType: "Promotional",
+    };
+    const response = await client.send(new PublishCommand(params));
+    console.log("No game message sent");
+    console.log(response);
     return {
       statusCode: 200,
       body: {
@@ -38,6 +52,8 @@ export const handler: Handler = async () => {
     TopicArn: process.env.SNS_TOPIC_ARN,
     DefaultSMSType: "Promotional",
   };
+  console.log("Game Message Sent:");
+  console.log(Message);
   const response = await client.send(new PublishCommand(params));
   return {
     statusCode: 200,
