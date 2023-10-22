@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - feat/remove-pipelines-github
   workflow_dispatch: {}
 jobs:
   Build-Build:
