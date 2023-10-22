@@ -57,13 +57,12 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     {
       name: "Upload Test Reports",
       uses: "actions/upload-artifact@v3",
-      with:
-      {
+      with: {
         name: "test-reports",
-        path: "test-reports"
-      }
-    }
-  ]
+        path: "test-reports",
+      },
+    },
+  ],
 });
 
 project.synth();
