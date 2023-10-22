@@ -1,7 +1,5 @@
 import { existsSync, readFileSync } from "fs";
 import { App, Stage, StageProps } from "aws-cdk-lib";
-import { ShellStep } from "aws-cdk-lib/pipelines";
-import { AwsCredentials, GitHubWorkflow } from "cdk-pipelines-github";
 import { Construct } from "constructs";
 import { load } from "js-yaml";
 import ContactData from "./contacts";
@@ -58,40 +56,19 @@ class TextRemindersStage extends Stage {
   }
 }
 
-const pipeline = new GitHubWorkflow(app, "Pipeline", {
-  synth: new ShellStep("Build", {
-    commands: ["yarn", "yarn build"],
-    env: {
-      CONTACTS_YML: "${{ vars.CONTACTS_YML }}",
-      TEST_PHONE_NUMBER: "${{ vars.TEST_PHONE_NUMBER }}",
-    },
-  }),
-  awsCreds: AwsCredentials.fromOpenIdConnect({
-    gitHubActionRoleArn: "arn:aws:iam::746512892315:role/GitHubActionRole",
-  }),
-});
-
 new TextRemindersStage(app, "dev-stage", {
   env: devEnv,
   contacts: localContacts,
 });
 
-const testStage = new TextRemindersStage(app, "test-stage", {
+new TextRemindersStage(app, "test-stage", {
   env: testEnv,
   contacts: ContactData.Test,
 });
 
-const prodStage = new TextRemindersStage(app, "prod-stage", {
+new TextRemindersStage(app, "prod-stage", {
   env: prodEnv,
   contacts: prodContacts,
-});
-
-pipeline.addStageWithGitHubOptions(testStage, {
-  gitHubEnvironment: { name: "Test" },
-});
-
-pipeline.addStageWithGitHubOptions(prodStage, {
-  gitHubEnvironment: { name: "Production" },
 });
 
 app.synth();

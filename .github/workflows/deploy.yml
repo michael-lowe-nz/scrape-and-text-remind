@@ -8,7 +8,7 @@ on:
       - main
   workflow_dispatch: {}
 jobs:
-  Build-Build:
+  Build-App:
     name: Synthesize
     permissions:
       contents: read
@@ -30,6 +30,11 @@ jobs:
         with:
           name: cdk.out
           path: cdk.out
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: test-reports
   Assets-FileAsset1:
     name: Publish Assets Assets-FileAsset1
     needs:
