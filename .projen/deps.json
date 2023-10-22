@@ -132,7 +132,7 @@
       "type": "runtime"
     },
     {
-      "name": "jest-html-reporter",
+      "name": "jest-html-reporters",
       "type": "runtime"
     },
     {

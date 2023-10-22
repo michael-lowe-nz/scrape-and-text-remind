@@ -57,13 +57,30 @@
     "cdk-pipelines-github": "^0.4.103",
     "cheerio": "latest",
     "constructs": "^10.0.5",
-    "jest-html-reporter": "^3.10.2",
+    "jest-html-reporters": "^3.1.4",
     "js-yaml": "^4.1.0",
     "moment": "^2.29.4"
   },
   "license": "Apache-2.0",
   "version": "0.0.0",
   "jest": {
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test-reports"
+        }
+      ],
+      "default",
+      [
+        "jest-html-reporters",
+        {
+          "publicPath": "./test-reports",
+          "inlineSource": true
+        }
+      ]
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.ts?(x)",
       "<rootDir>/(test|src)/**/*(*.)@(spec|test).ts?(x)"
@@ -86,15 +103,6 @@
     ],
     "watchPathIgnorePatterns": [
       "/node_modules/"
-    ],
-    "reporters": [
-      "default",
-      [
-        "jest-junit",
-        {
-          "outputDirectory": "test-reports"
-        }
-      ]
     ],
     "preset": "ts-jest",
     "globals": {
