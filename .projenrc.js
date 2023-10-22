@@ -32,6 +32,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
             inlineSource: true,
           },
         ],
+        "github-actions",
       ],
     },
   },
