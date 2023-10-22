@@ -1,7 +1,11 @@
 import { existsSync, readFileSync } from "fs";
 import { App, Stage, StageProps } from "aws-cdk-lib";
 import { ShellStep } from "aws-cdk-lib/pipelines";
-import { AwsCredentials, GitHubWorkflow } from "cdk-pipelines-github";
+import {
+  AwsCredentials,
+  GitHubActionStep,
+  GitHubWorkflow,
+} from "cdk-pipelines-github";
 import { Construct } from "constructs";
 import { load } from "js-yaml";
 import ContactData from "./contacts";
@@ -69,6 +73,20 @@ const pipeline = new GitHubWorkflow(app, "Pipeline", {
   awsCreds: AwsCredentials.fromOpenIdConnect({
     gitHubActionRoleArn: "arn:aws:iam::746512892315:role/GitHubActionRole",
   }),
+  postBuildSteps: [
+    new GitHubActionStep("test-reports", {
+      jobSteps: [
+        {
+          name: "Upload Test Reports",
+          uses: "actions/upload-artifact@v3",
+          with: {
+            name: "Test Reports",
+            path: "test-reports",
+          },
+        },
+      ],
+    }),
+  ],
 });
 
 new TextRemindersStage(app, "dev-stage", {

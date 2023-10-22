@@ -17,8 +17,25 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "@types/aws-lambda",
     "axios",
     "moment",
+    "jest-html-reporters",
   ] /* Runtime dependencies of this module. */,
   description: "Send Text Reminders based on a lambda scrape and approval",
+  jestOptions: {
+    preserveDefaultReporters: true,
+    jestConfig: {
+      reporters: [
+        "default",
+        [
+          "jest-html-reporters",
+          {
+            publicPath: "./test-reports",
+            inlineSource: true,
+          },
+        ],
+        "github-actions",
+      ],
+    },
+  },
   devDeps: [] /* Build dependencies for this module. */,
   packageName:
     "league-lobster-text-reminders" /* The "name" in package.json. */,
