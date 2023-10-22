@@ -8,7 +8,7 @@ on:
       - main
   workflow_dispatch: {}
 jobs:
-  Build-App:
+  Build-Build:
     name: Synthesize
     permissions:
       contents: read
