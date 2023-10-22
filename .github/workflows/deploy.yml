@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - main
+      - feat/remove-pipelines-github
   workflow_dispatch: {}
 jobs:
   Build-Build:
@@ -35,90 +36,6 @@ jobs:
         with:
           name: test-reports
           path: test-reports
-  Assets-FileAsset1:
-    name: Publish Assets Assets-FileAsset1
-    needs:
-      - Build-Build
-    permissions:
-      contents: read
-      id-token: write
-    runs-on: ubuntu-latest
-    outputs:
-      asset-hash: ${{ steps.Publish.outputs.asset-hash }}
-    steps:
-      - name: Download cdk.out
-        uses: actions/download-artifact@v3
-        with:
-          name: cdk.out
-          path: cdk.out
-      - name: Install
-        run: npm install --no-save cdk-assets
-      - name: Authenticate Via OIDC Role
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-region: us-west-2
-          role-duration-seconds: 1800
-          role-skip-session-tagging: true
-          role-to-assume: arn:aws:iam::746512892315:role/GitHubActionRole
-      - id: Publish
-        name: Publish Assets-FileAsset1
-        run: /bin/bash ./cdk.out/publish-Assets-FileAsset1-step.sh
-  Assets-FileAsset2:
-    name: Publish Assets Assets-FileAsset2
-    needs:
-      - Build-Build
-    permissions:
-      contents: read
-      id-token: write
-    runs-on: ubuntu-latest
-    outputs:
-      asset-hash: ${{ steps.Publish.outputs.asset-hash }}
-    steps:
-      - name: Download cdk.out
-        uses: actions/download-artifact@v3
-        with:
-          name: cdk.out
-          path: cdk.out
-      - name: Install
-        run: npm install --no-save cdk-assets
-      - name: Authenticate Via OIDC Role
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-region: us-west-2
-          role-duration-seconds: 1800
-          role-skip-session-tagging: true
-          role-to-assume: arn:aws:iam::746512892315:role/GitHubActionRole
-      - id: Publish
-        name: Publish Assets-FileAsset2
-        run: /bin/bash ./cdk.out/publish-Assets-FileAsset2-step.sh
-  Assets-FileAsset3:
-    name: Publish Assets Assets-FileAsset3
-    needs:
-      - Build-Build
-    permissions:
-      contents: read
-      id-token: write
-    runs-on: ubuntu-latest
-    outputs:
-      asset-hash: ${{ steps.Publish.outputs.asset-hash }}
-    steps:
-      - name: Download cdk.out
-        uses: actions/download-artifact@v3
-        with:
-          name: cdk.out
-          path: cdk.out
-      - name: Install
-        run: npm install --no-save cdk-assets
-      - name: Authenticate Via OIDC Role
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-region: us-west-2
-          role-duration-seconds: 1800
-          role-skip-session-tagging: true
-          role-to-assume: arn:aws:iam::746512892315:role/GitHubActionRole
-      - id: Publish
-        name: Publish Assets-FileAsset3
-        run: /bin/bash ./cdk.out/publish-Assets-FileAsset3-step.sh
   test-stage-TextReminders-Deploy:
     name: Deploy teststageTextRemindersCA2DC144
     permissions:
@@ -127,10 +44,10 @@ jobs:
     environment: Test
     needs:
       - Build-Build
-      - Assets-FileAsset1
-      - Assets-FileAsset2
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v3
       - name: Authenticate Via OIDC Role
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
@@ -149,14 +66,20 @@ jobs:
           aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
           role-to-assume: arn:aws:iam::653221278763:role/cdk-hnb659fds-deploy-role-653221278763-ap-southeast-2
           role-external-id: Pipeline
-      - id: Deploy
-        uses: aws-actions/aws-cloudformation-github-deploy@v1.2.0
+      - name: Download cdk.out
+        uses: actions/download-artifact@v3
         with:
-          name: test-stage-TextReminders
-          template: https://cdk-hnb659fds-assets-653221278763-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
-            needs.Assets-FileAsset1.outputs.asset-hash }}.json
-          no-fail-on-empty-changeset: "1"
-          role-arn: arn:aws:iam::653221278763:role/cdk-hnb659fds-cfn-exec-role-653221278763-ap-southeast-2
+          name: cdk.out
+          path: cdk.out
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+      - name: Install CDK dependencies from cache
+        run: |-
+          yarn
+      - name: CDK deploy
+        run: npx cdk deploy --app "cdk.out" --require-approval never "test-stage/*"
   prod-stage-TextReminders-Deploy:
     name: Deploy prodstageTextReminders32176EAB
     permissions:
@@ -165,11 +88,11 @@ jobs:
     environment: Production
     needs:
       - Build-Build
-      - Assets-FileAsset3
-      - Assets-FileAsset2
       - test-stage-TextReminders-Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v3
       - name: Authenticate Via OIDC Role
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
@@ -188,11 +111,17 @@ jobs:
           aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
           role-to-assume: arn:aws:iam::365979456435:role/cdk-hnb659fds-deploy-role-365979456435-ap-southeast-2
           role-external-id: Pipeline
-      - id: Deploy
-        uses: aws-actions/aws-cloudformation-github-deploy@v1.2.0
+      - name: Download cdk.out
+        uses: actions/download-artifact@v3
         with:
-          name: prod-stage-TextReminders
-          template: https://cdk-hnb659fds-assets-365979456435-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/${{
-            needs.Assets-FileAsset3.outputs.asset-hash }}.json
-          no-fail-on-empty-changeset: "1"
-          role-arn: arn:aws:iam::365979456435:role/cdk-hnb659fds-cfn-exec-role-365979456435-ap-southeast-2
+          name: cdk.out
+          path: cdk.out
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+      - name: Install CDK dependencies from cache
+        run: |-
+          yarn
+      - name: CDK deploy
+        run: npx cdk deploy --app "cdk.out" --require-approval never "prod-stage/*"
