@@ -31,6 +31,5 @@ export class OIDCSetup extends Stack {
       repos: ["michael-lowe-nz/scrape-and-text-remind"],
       provider: githubProvider,
     });
-
   }
 }

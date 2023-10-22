@@ -73,11 +73,11 @@ const pipeline = new GitHubWorkflow(app, "Pipeline", {
   awsCreds: AwsCredentials.fromOpenIdConnect({
     gitHubActionRoleArn: "arn:aws:iam::746512892315:role/GitHubActionRole",
   }),
-  postBuildSteps: [
-    new GitHubActionStep("test-reports", {
+  preBuildSteps: [
+    new GitHubActionStep("UploadHTML", {
       jobSteps: [
         {
-          name: "Upload Test Reports",
+          name: "UploadTestReports",
           uses: "actions/upload-artifact@v3",
           with: {
             name: "Test Reports",
@@ -106,6 +106,20 @@ const prodStage = new TextRemindersStage(app, "prod-stage", {
 
 pipeline.addStageWithGitHubOptions(testStage, {
   gitHubEnvironment: { name: "Test" },
+  pre: [
+    new GitHubActionStep("Build", {
+      jobSteps: [
+        {
+          name: "Upload Test Reports",
+          uses: "actions/upload-artifact@v3",
+          with: {
+            name: "Test Reports",
+            path: "test-reports",
+          },
+        },
+      ],
+    }),
+  ],
 });
 
 pipeline.addStageWithGitHubOptions(prodStage, {

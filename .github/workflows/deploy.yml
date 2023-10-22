@@ -21,21 +21,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Build
-        run: |-
-          yarn
-          yarn build
-      - id: test-reports
+      - id: UploadHTML
         dependency-file-sets: []
         is-source: false
         _dependencies: {}
         job-steps:
-          - name: Upload Test Reports
+          - name: UploadTestReports
             uses: actions/upload-artifact@v3
             with:
               name: Test Reports
               path: test-reports
         env: {}
+      - name: Build
+        run: |-
+          yarn
+          yarn build
       - name: Upload cdk.out
         uses: actions/upload-artifact@v3
         with:
@@ -125,6 +125,20 @@ jobs:
       - id: Publish
         name: Publish Assets-FileAsset3
         run: /bin/bash ./cdk.out/publish-Assets-FileAsset3-step.sh
+  test-stage-Build:
+    name: Build
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    needs:
+      - Build-Build
+    env: {}
+    steps:
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test Reports
+          path: test-reports
   test-stage-TextReminders-Deploy:
     name: Deploy teststageTextRemindersCA2DC144
     permissions:
@@ -135,6 +149,7 @@ jobs:
       - Build-Build
       - Assets-FileAsset1
       - Assets-FileAsset2
+      - test-stage-Build
     runs-on: ubuntu-latest
     steps:
       - name: Authenticate Via OIDC Role
@@ -174,6 +189,7 @@ jobs:
       - Assets-FileAsset3
       - Assets-FileAsset2
       - test-stage-TextReminders-Deploy
+      - test-stage-Build
     runs-on: ubuntu-latest
     steps:
       - name: Authenticate Via OIDC Role
