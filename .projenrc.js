@@ -53,6 +53,16 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     `- [ ] My change requires a change to the documentation.`,
     `- [ ] I have updated the documentation accordingly.`,
   ],
+  postBuildSteps: [
+    {
+      name: "Upload Test Reports",
+      uses: "actions/upload-artifact@v3",
+      with: {
+        name: "test-reports",
+        path: "test-reports",
+      },
+    },
+  ],
 });
 
 project.synth();
