@@ -25,6 +25,17 @@ jobs:
         run: |-
           yarn
           yarn build
+      - id: test-reports
+        dependency-file-sets: []
+        is-source: false
+        _dependencies: {}
+        job-steps:
+          - name: Upload Test Reports
+            uses: actions/upload-artifact@v3
+            with:
+              name: Test Reports
+              path: test-reports
+        env: {}
       - name: Upload cdk.out
         uses: actions/upload-artifact@v3
         with:

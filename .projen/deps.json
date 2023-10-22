@@ -132,6 +132,10 @@
       "type": "runtime"
     },
     {
+      "name": "jest-html-reporters",
+      "type": "runtime"
+    },
+    {
       "name": "js-yaml",
       "type": "runtime"
     },
