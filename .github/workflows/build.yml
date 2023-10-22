@@ -23,6 +23,11 @@ jobs:
         run: yarn install --check-files
       - name: build
         run: npx projen build
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: test-reports
       - name: Find mutations
         id: self_mutation
         run: |-
