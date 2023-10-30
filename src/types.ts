@@ -4,7 +4,7 @@ export type Contacts = {
 
 export type Team = {
   Name: string;
-  Players: Array<{ Name: string; Number: string }>;
+  Players: Array<Player>;
   ScheduleURL: string;
 };
 
@@ -13,4 +13,10 @@ export type Game = {
   time: string;
   court: string;
   teamAgainst: string;
+};
+
+export type Player = {
+  Name: string;
+  Number: string;
+  IsAdmin?: boolean;
 };

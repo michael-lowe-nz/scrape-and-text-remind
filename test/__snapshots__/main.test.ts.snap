@@ -20,12 +20,15 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "f844e1ae7cdf337ecdfa3d91f1950e20a0c5b550dfbbfbf54b7830c82c112b6e.zip",
+          "S3Key": "7c68f067ae8027234414477f71357a89ad15773da1e46feb2f17ad32c4f9ca6c.zip",
         },
         "Environment": {
           "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
             "SCHEDULE_URL": "https://websites.mygameday.app/team_info.cgi?c=0-2854-0-633233-27116561&a=SFIX",
+            "SNS_ADMIN_TOPIC_ARN": {
+              "Ref": "TestTeam2AdminAlertsF70221A9",
+            },
             "SNS_TOPIC_ARN": {
               "Ref": "TestTeam2Alerts2BE53530",
             },
@@ -64,6 +67,13 @@ exports[`Snapshot 1`] = `
               "Effect": "Allow",
               "Resource": {
                 "Ref": "TestTeam2Alerts2BE53530",
+              },
+            },
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "TestTeam2AdminAlertsF70221A9",
               },
             },
           ],
@@ -119,12 +129,15 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "f844e1ae7cdf337ecdfa3d91f1950e20a0c5b550dfbbfbf54b7830c82c112b6e.zip",
+          "S3Key": "7c68f067ae8027234414477f71357a89ad15773da1e46feb2f17ad32c4f9ca6c.zip",
         },
         "Environment": {
           "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
             "SCHEDULE_URL": "https://websites.mygameday.app/team_info.cgi?c=0-2854-0-633233-27116561&a=SFIX",
+            "SNS_ADMIN_TOPIC_ARN": {
+              "Ref": "TestTeamAdminAlerts79526D60",
+            },
             "SNS_TOPIC_ARN": {
               "Ref": "TestTeamAlerts58363266",
             },
@@ -196,6 +209,13 @@ exports[`Snapshot 1`] = `
                 "Ref": "TestTeamAlerts58363266",
               },
             },
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "TestTeamAdminAlerts79526D60",
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
@@ -207,6 +227,31 @@ exports[`Snapshot 1`] = `
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "TestTeam2AdminAlertsF70221A9": {
+      "Properties": {
+        "KmsMasterKeyId": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":kms:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":alias/aws/sns",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::SNS::Topic",
     },
     "TestTeam2Alerts2BE53530": {
       "Properties": {
@@ -289,6 +334,41 @@ exports[`Snapshot 1`] = `
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+    "TestTeamAdminAlerts19F41B9A1": {
+      "Properties": {
+        "Endpoint": "+1",
+        "Protocol": "sms",
+        "TopicArn": {
+          "Ref": "TestTeamAdminAlerts79526D60",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
+    "TestTeamAdminAlerts79526D60": {
+      "Properties": {
+        "KmsMasterKeyId": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":kms:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":alias/aws/sns",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::SNS::Topic",
     },
     "TestTeamAlerts17FF09393": {
       "Properties": {
