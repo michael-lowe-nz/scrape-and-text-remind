@@ -27,41 +27,11 @@ export class OIDCSetup extends Stack {
       }
     );
 
-    new GitHubActionRole(this, "github-action-role", {
-      repos: ["michael-lowe-nz/league-lobster-text-reminders"],
+    const deployRole = new GitHubActionRole(this, "github-action-role", {
+      repos: ["michael-lowe-nz/scrape-and-text-remind"],
       provider: githubProvider,
     });
 
-    // const deployRole = new Role(this, "GithubDeployRole", {
-    //   assumedBy: new WebIdentityPrincipal(
-    //     githubProvider.openIdConnectProviderArn,
-    //     {
-    //       StringEquals: {
-    //         "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-    //         // "token.actions.githubusercontent.com:sub":
-    //         //   "repo:michael-lowe-nz/league-lobster-text-reminders:ref:refs/heads/main",
-    //       },
-    //       StringLike: {
-    //         "token.actions.githubusercontent.com:sub":
-    //           "repo:michael-lowe-nz/league-lobster-text-reminders:*",
-    //       },
-    //     }
-    //   ),
-    //   description: "Role to be used by Github actions",
-    //   inlinePolicies: {
-    //     CdkDeploymentPolicy: new PolicyDocument({
-    //       assignSids: true,
-    //       statements: [
-    //         new PolicyStatement({
-    //           effect: Effect.ALLOW,
-    //           actions: ["sts:AssumeRole"],
-    //           resources: [`arn:aws:iam::${this.account}:role/cdk-*`],
-    //         }),
-    //       ],
-    //     }),
-    //   },
-    // });
-    // this.role = deployRole;
-    // this.exportValue(deployRole);
+    this.exportValue(deployRole.role.roleArn);
   }
 }

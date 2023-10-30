@@ -54,17 +54,6 @@ jobs:
           role-duration-seconds: 1800
           role-skip-session-tagging: true
           role-to-assume: arn:aws:iam::746512892315:role/GitHubActionRole
-      - name: Assume CDK Deploy Role
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-region: ap-southeast-2
-          role-duration-seconds: 1800
-          role-skip-session-tagging: true
-          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
-          role-to-assume: arn:aws:iam::653221278763:role/cdk-hnb659fds-deploy-role-653221278763-ap-southeast-2
-          role-external-id: Pipeline
       - name: Download cdk.out
         uses: actions/download-artifact@v3
         with:
@@ -99,17 +88,6 @@ jobs:
           role-duration-seconds: 1800
           role-skip-session-tagging: true
           role-to-assume: arn:aws:iam::746512892315:role/GitHubActionRole
-      - name: Assume CDK Deploy Role
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-region: ap-southeast-2
-          role-duration-seconds: 1800
-          role-skip-session-tagging: true
-          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
-          role-to-assume: arn:aws:iam::365979456435:role/cdk-hnb659fds-deploy-role-365979456435-ap-southeast-2
-          role-external-id: Pipeline
       - name: Download cdk.out
         uses: actions/download-artifact@v3
         with:
