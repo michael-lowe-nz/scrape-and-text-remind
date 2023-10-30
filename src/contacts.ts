@@ -11,6 +11,7 @@ export default {
           {
             Name: "Shaquille ONeal",
             Number: process.env.TEST_PHONE_NUMBER || examplePhoneNumber,
+            IsAdmin: true,
           },
         ],
       },

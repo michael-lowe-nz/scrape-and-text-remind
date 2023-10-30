@@ -28,6 +28,10 @@ export class LeagueLobsterTextReminder extends Stack {
         masterKey: snsKey,
       });
 
+      const teamAdminTopic = new Topic(this, `${team.Name}AdminAlerts`, {
+        masterKey: snsKey,
+      });
+
       const teamAlertFunction = new NodejsFunction(
         this,
         `Alert${team.Name}Function`,
@@ -36,6 +40,7 @@ export class LeagueLobsterTextReminder extends Stack {
           entry: "./src/processGamesForTeam/index.ts",
           environment: {
             SNS_TOPIC_ARN: teamTopic.topicArn,
+            SNS_ADMIN_TOPIC_ARN: teamAdminTopic.topicArn,
             TZ: "Pacific/Auckland",
             SCHEDULE_URL: team.ScheduleURL,
           },
@@ -61,9 +66,14 @@ export class LeagueLobsterTextReminder extends Stack {
 
       // Allow each function to publish to the topic
       teamTopic.grantPublish(teamAlertFunction);
+      teamAdminTopic.grantPublish(teamAlertFunction);
 
       team.Players.forEach((player: any) => {
         teamTopic.addSubscription(new SmsSubscription(player.Number));
+
+        if (player.IsAdmin) {
+          teamAdminTopic.addSubscription(new SmsSubscription(player.Number));
+        }
       });
     });
   }

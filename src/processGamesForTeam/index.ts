@@ -28,10 +28,10 @@ export const handler: Handler = async () => {
   const nextGame: Game | null = getNextGameAfterDate(games, moment());
 
   if (!nextGame) {
-    const Message = `No game this week... relax 😴`;
+    const Message = `Ok, looks like we can't find a game for the coming week. You might want to check what is going on! 👀`;
     const params = {
       Message,
-      TopicArn: process.env.SNS_TOPIC_ARN,
+      TopicArn: process.env.SNS_ADMIN_TOPIC_ARN,
       DefaultSMSType: "Promotional",
     };
     const response = await client.send(new PublishCommand(params));
