@@ -20,7 +20,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "845a6acbb70dbd2aac72f547cf111356d584158e15740ebac5a627e1b558b07c.zip",
+          "S3Key": "7c68f067ae8027234414477f71357a89ad15773da1e46feb2f17ad32c4f9ca6c.zip",
         },
         "Environment": {
           "Variables": {
@@ -129,7 +129,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "845a6acbb70dbd2aac72f547cf111356d584158e15740ebac5a627e1b558b07c.zip",
+          "S3Key": "7c68f067ae8027234414477f71357a89ad15773da1e46feb2f17ad32c4f9ca6c.zip",
         },
         "Environment": {
           "Variables": {
