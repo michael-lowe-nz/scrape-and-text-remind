@@ -1,17 +1,10 @@
 import { Stack, StackProps } from "aws-cdk-lib";
-import {
-  // Role,
-  // WebIdentityPrincipal,
-  // PolicyDocument,
-  // Effect,
-  // PolicyStatement,
-  OpenIdConnectProvider,
-} from "aws-cdk-lib/aws-iam";
+import { OpenIdConnectProvider } from "aws-cdk-lib/aws-iam";
+import { NagSuppressions } from "cdk-nag";
 import { GitHubActionRole } from "cdk-pipelines-github";
 import { Construct } from "constructs";
 
 export class OIDCSetup extends Stack {
-  // role: Role;
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
     const githubProvider = new OpenIdConnectProvider(
@@ -31,6 +24,19 @@ export class OIDCSetup extends Stack {
       repos: ["michael-lowe-nz/scrape-and-text-remind"],
       provider: githubProvider,
     });
+
+    NagSuppressions.addResourceSuppressions(
+      deployRole,
+      [
+        {
+          id: "AwsSolutions-IAM5",
+          reason:
+            "This is from a 3rd party construct. We could look to implement our own to mitigate",
+          appliesTo: ["Resource::*"],
+        },
+      ],
+      true
+    );
 
     this.exportValue(deployRole.role.roleArn);
   }

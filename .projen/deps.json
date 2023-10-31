@@ -118,6 +118,10 @@
       "type": "runtime"
     },
     {
+      "name": "cdk-nag",
+      "type": "runtime"
+    },
+    {
       "name": "cdk-pipelines-github",
       "type": "runtime"
     },

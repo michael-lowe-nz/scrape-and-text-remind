@@ -18,6 +18,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "axios",
     "moment",
     "jest-html-reporters",
+    "cdk-nag",
   ] /* Runtime dependencies of this module. */,
   description: "Send Text Reminders based on a lambda scrape and approval",
   jestOptions: {
@@ -60,6 +61,14 @@ const project = new awscdk.AwsCdkTypeScriptApp({
       with: {
         name: "test-reports",
         path: "test-reports",
+      },
+    },
+    {
+      name: "Upload CDK Nag Report",
+      uses: "actions/upload-artifact@v3",
+      with: {
+        name: "test-reports",
+        path: "cdk.out/",
       },
     },
   ],

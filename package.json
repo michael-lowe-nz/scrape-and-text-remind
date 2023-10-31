@@ -54,6 +54,7 @@
     "@types/js-yaml": "4.0.5",
     "aws-cdk-lib": "^2.1.0",
     "axios": "^1.6.0",
+    "cdk-nag": "^2.27.178",
     "cdk-pipelines-github": "^0.4.104",
     "cheerio": "latest",
     "constructs": "^10.0.5",
