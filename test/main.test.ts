@@ -1,6 +1,6 @@
 import { App, Aspects } from "aws-cdk-lib";
 import { Annotations, Match, Template } from "aws-cdk-lib/assertions";
-import { AwsSolutionsChecks } from 'cdk-nag';
+import { AwsSolutionsChecks } from "cdk-nag";
 import {
   LeagueLobsterTextReminder,
   LeagueLobsterTextReminderProps,
@@ -76,8 +76,8 @@ test("Test that there are no unsupressed errors in the CDK NAG output", () => {
   Aspects.of(stack).add(new AwsSolutionsChecks({ verbose: true }));
   // Aspects.of(stack).add(new AwsSolutionsChecks({ verbose: true }));
   const errors = Annotations.fromStack(stack).findError(
-    '*',
-    Match.stringLikeRegexp('AwsSolutions-.*')
+    "*",
+    Match.stringLikeRegexp("AwsSolutions-.*")
   );
   expect(errors).toHaveLength(0);
-})
+});

@@ -1,11 +1,18 @@
 import { Duration, Stack, StackProps } from "aws-cdk-lib";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
+import {
+  Policy,
+  PolicyStatement,
+  Role,
+  ServicePrincipal,
+} from "aws-cdk-lib/aws-iam";
 import { Alias } from "aws-cdk-lib/aws-kms";
 import { Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { SmsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
+import { NagSuppressions } from "cdk-nag";
 import { Construct } from "constructs";
 import { Contacts, Team } from "../types";
 
@@ -32,6 +39,14 @@ export class LeagueLobsterTextReminder extends Stack {
         masterKey: snsKey,
       });
 
+      const teamAlertFunctionRole = new Role(
+        this,
+        `Alert${team.Name}FunctionRole`,
+        {
+          assumedBy: new ServicePrincipal("lambda.amazonaws.com"),
+        }
+      );
+
       const teamAlertFunction = new NodejsFunction(
         this,
         `Alert${team.Name}Function`,
@@ -46,8 +61,89 @@ export class LeagueLobsterTextReminder extends Stack {
           },
           timeout: Duration.seconds(5),
           tracing: Tracing.ACTIVE,
+          role: teamAlertFunctionRole,
         }
       );
+
+      const basicLambdaPolicy = new Policy(this, `Alert${team.Name}Policy`, {
+        statements: [
+          new PolicyStatement({
+            actions: [
+              "logs:CreateLogGroup",
+              "logs:CreateLogStream",
+              "logs:PutLogEvents",
+            ],
+            resources: [
+              `arn:aws:logs:${this.region}:${this.account}:log-group:${teamAlertFunction.functionName}:*`,
+            ],
+          }),
+        ],
+      });
+
+      teamAlertFunction.role?.attachInlinePolicy(basicLambdaPolicy);
+
+      NagSuppressions.addResourceSuppressions(
+        teamAlertFunction,
+        [
+          {
+            id: "AwsSolutions-IAM5",
+            reason: "This wildcard might be necessary",
+            appliesTo: ["Resource::*"],
+          },
+          {
+            id: "AwsSolutions-IAM5",
+            reason: "This wildcard might be necessary",
+            appliesTo: ["Resource::*"],
+          },
+        ],
+        true
+      );
+
+      NagSuppressions.addResourceSuppressions(
+        basicLambdaPolicy,
+        [
+          {
+            id: "AwsSolutions-IAM5",
+            reason: "This wildcard might be necessary",
+            appliesTo: ["Resource::*"],
+          },
+          {
+            id: "AwsSolutions-IAM5",
+            reason: "This wildcard might be necessary",
+            appliesTo: [
+              // { regex: "Resource::arn:aws:logs:ap-southeast-2:476203294330:log-group:AlertGenXFunction8E4EBA9D:*" },
+              { regex: "/^Resource::arn:aws:logs:(.*)\\*$/g" },
+              // regex: '/^Resource::arn:aws:sqs:(.*):\\*$/g',
+            ],
+          },
+        ],
+        true
+      );
+
+      NagSuppressions.addResourceSuppressions(
+        teamAlertFunctionRole,
+        [
+          {
+            id: "AwsSolutions-IAM5",
+            reason: "This wildcard might be necessary",
+            appliesTo: ["Resource::*"],
+          },
+        ],
+        true
+      );
+
+      // NagSuppressions.addResourceSuppressions(
+      //   deployRole,
+      //   [
+      //     {
+      //       id: "AwsSolutions-IAM5",
+      //       reason:
+      //         "This is from a 3rd party construct. We could look to implement our own to mitigate",
+      //       appliesTo: ["Resource::*"],
+      //     },
+      //   ],
+      //   true
+      // );
 
       // Trigger the lambda for each team at 8:30pm every Sunday (NZT)
       // As NZT is UTC+12 (UTC+13 in daylight savings time)

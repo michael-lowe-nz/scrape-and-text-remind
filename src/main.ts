@@ -5,7 +5,7 @@ import { Construct } from "constructs";
 import { load } from "js-yaml";
 import ContactData from "./contacts";
 import { LeagueLobsterTextReminder } from "./stacks/leagueLobsterTextReminders";
-// import { OIDCSetup } from "./stacks/oidcSetup";
+import { OIDCSetup } from "./stacks/oidcSetup";
 import { Contacts } from "./types";
 
 const testEnv = {
@@ -25,7 +25,7 @@ const prodEnv = {
 
 const app = new App();
 
-// new OIDCSetup(app, "oidc-setup");
+new OIDCSetup(app, "oidc-setup");
 
 let localContacts: any;
 let prodContacts: any;
@@ -74,11 +74,5 @@ new TextRemindersStage(app, "prod-stage", {
   env: prodEnv,
   contacts: prodContacts,
 });
-
-/**
- * CDK Nag checks
- */
-// Aspects.of(app).add(new AwsSolutionsChecks({ verbose: true }));
-// Aspects.of(app).add(new HIPAASecurityChecks({ verbose: true }));
 
 app.synth();
