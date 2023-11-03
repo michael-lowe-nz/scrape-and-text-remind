@@ -28,6 +28,11 @@ jobs:
         with:
           name: test-reports
           path: test-reports
+      - name: Upload CDK Nag Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: cdk.out/
       - name: Find mutations
         id: self_mutation
         run: |-

@@ -12,9 +12,22 @@ exports[`Snapshot 1`] = `
   "Resources": {
     "AlertTestTeam2Function6D2517FA": {
       "DependsOn": [
-        "AlertTestTeam2FunctionServiceRoleDefaultPolicyF77B6850",
-        "AlertTestTeam2FunctionServiceRoleEA0E27EA",
+        "AlertTestTeam2FunctionRoleDefaultPolicyB0881FC0",
+        "AlertTestTeam2FunctionRole5878891F",
       ],
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "applies_to": [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
+            },
+          ],
+        },
+      },
       "Properties": {
         "Code": {
           "S3Bucket": {
@@ -38,7 +51,7 @@ exports[`Snapshot 1`] = `
         "Handler": "index.handler",
         "Role": {
           "Fn::GetAtt": [
-            "AlertTestTeam2FunctionServiceRoleEA0E27EA",
+            "AlertTestTeam2FunctionRole5878891F",
             "Arn",
           ],
         },
@@ -50,7 +63,50 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
-    "AlertTestTeam2FunctionServiceRoleDefaultPolicyF77B6850": {
+    "AlertTestTeam2FunctionRole5878891F": {
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "applies_to": [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
+            },
+          ],
+        },
+      },
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "AlertTestTeam2FunctionRoleDefaultPolicyB0881FC0": {
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "applies_to": [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
+            },
+          ],
+        },
+      },
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -79,51 +135,99 @@ exports[`Snapshot 1`] = `
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "AlertTestTeam2FunctionServiceRoleDefaultPolicyF77B6850",
+        "PolicyName": "AlertTestTeam2FunctionRoleDefaultPolicyB0881FC0",
         "Roles": [
           {
-            "Ref": "AlertTestTeam2FunctionServiceRoleEA0E27EA",
+            "Ref": "AlertTestTeam2FunctionRole5878891F",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "AlertTestTeam2FunctionServiceRoleEA0E27EA": {
+    "AlertTestTeam2PolicyFF85498B": {
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "applies_to": [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
+            },
+            {
+              "applies_to": [
+                {
+                  "regex": "/^Resource::arn:aws:logs:(.*)\\*$/g",
+                },
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
+            },
+          ],
+        },
+      },
       "Properties": {
-        "AssumeRolePolicyDocument": {
+        "PolicyDocument": {
           "Statement": [
             {
-              "Action": "sts:AssumeRole",
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
               "Effect": "Allow",
-              "Principal": {
-                "Service": "lambda.amazonaws.com",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:logs:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    {
+                      "Ref": "AlertTestTeam2Function6D2517FA",
+                    },
+                    ":*",
+                  ],
+                ],
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": [
+        "PolicyName": "AlertTestTeam2PolicyFF85498B",
+        "Roles": [
           {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
+            "Ref": "AlertTestTeam2FunctionRole5878891F",
           },
         ],
       },
-      "Type": "AWS::IAM::Role",
+      "Type": "AWS::IAM::Policy",
     },
     "AlertTestTeamFunction3257EF79": {
       "DependsOn": [
-        "AlertTestTeamFunctionServiceRoleDefaultPolicy918B5A1B",
-        "AlertTestTeamFunctionServiceRole496082A0",
+        "AlertTestTeamFunctionRoleDefaultPolicy29B1D809",
+        "AlertTestTeamFunctionRoleFACF071A",
       ],
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "applies_to": [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
+            },
+          ],
+        },
+      },
       "Properties": {
         "Code": {
           "S3Bucket": {
@@ -147,7 +251,7 @@ exports[`Snapshot 1`] = `
         "Handler": "index.handler",
         "Role": {
           "Fn::GetAtt": [
-            "AlertTestTeamFunctionServiceRole496082A0",
+            "AlertTestTeamFunctionRoleFACF071A",
             "Arn",
           ],
         },
@@ -159,38 +263,20 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
-    "AlertTestTeamFunctionServiceRole496082A0": {
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
+    "AlertTestTeamFunctionRoleDefaultPolicy29B1D809": {
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
             {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": {
-                "Service": "lambda.amazonaws.com",
-              },
+              "applies_to": [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
             },
           ],
-          "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
       },
-      "Type": "AWS::IAM::Role",
-    },
-    "AlertTestTeamFunctionServiceRoleDefaultPolicy918B5A1B": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -219,10 +305,106 @@ exports[`Snapshot 1`] = `
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "AlertTestTeamFunctionServiceRoleDefaultPolicy918B5A1B",
+        "PolicyName": "AlertTestTeamFunctionRoleDefaultPolicy29B1D809",
         "Roles": [
           {
-            "Ref": "AlertTestTeamFunctionServiceRole496082A0",
+            "Ref": "AlertTestTeamFunctionRoleFACF071A",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "AlertTestTeamFunctionRoleFACF071A": {
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "applies_to": [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
+            },
+          ],
+        },
+      },
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "AlertTestTeamPolicy847AC8B8": {
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "applies_to": [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
+            },
+            {
+              "applies_to": [
+                {
+                  "regex": "/^Resource::arn:aws:logs:(.*)\\*$/g",
+                },
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
+            },
+          ],
+        },
+      },
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:logs:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":log-group:",
+                    {
+                      "Ref": "AlertTestTeamFunction3257EF79",
+                    },
+                    ":*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "AlertTestTeamPolicy847AC8B8",
+        "Roles": [
+          {
+            "Ref": "AlertTestTeamFunctionRoleFACF071A",
           },
         ],
       },

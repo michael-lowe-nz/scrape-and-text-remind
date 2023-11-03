@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from "fs";
-import { App, Stage, StageProps } from "aws-cdk-lib";
+import { App, Aspects, Stage, StageProps } from "aws-cdk-lib";
+import { AwsSolutionsChecks, HIPAASecurityChecks } from "cdk-nag";
 import { Construct } from "constructs";
 import { load } from "js-yaml";
 import ContactData from "./contacts";
@@ -50,9 +51,12 @@ class TextRemindersStage extends Stage {
   constructor(scope: Construct, id: string, props: StageTemplateProps) {
     super(scope, id, props);
 
-    new LeagueLobsterTextReminder(this, "TextReminders", {
+    const stack = new LeagueLobsterTextReminder(this, "TextReminders", {
       Contacts: props.contacts,
     });
+
+    Aspects.of(stack).add(new AwsSolutionsChecks({ verbose: true }));
+    Aspects.of(app).add(new HIPAASecurityChecks({ verbose: true }));
   }
 }
 
