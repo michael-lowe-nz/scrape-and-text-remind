@@ -34,6 +34,11 @@ export class OIDCSetup extends Stack {
             "This is from a 3rd party construct. We could look to implement our own to mitigate",
           appliesTo: ["Resource::*"],
         },
+        {
+          id: "HIPAA.Security-IAMNoInlinePolicy",
+          reason:
+            "This is from a 3rd party construct. We could look to implement our own to mitigate",
+        },
       ],
       true
     );
