@@ -15,6 +15,8 @@ const url = process.env.SCHEDULE_URL;
 export const handler: Handler = async () => {
   const client = new SNSClient({ region: process.env.AWS_REGION });
 
+  const teamName = process.env.TEAM_NAME;
+
   /**
    * @todo should be an environment variable
    */
@@ -28,7 +30,7 @@ export const handler: Handler = async () => {
   const nextGame: Game | null = getNextGameAfterDate(games, moment());
 
   if (!nextGame) {
-    const Message = `Ok, looks like we can't find a game for the coming week. You might want to check what is going on! 👀`;
+    const Message = `Ok, looks like we can't find a game for ${teamName} the coming week. You might want to check what is going on! 👀`;
     const params = {
       Message,
       TopicArn: process.env.SNS_ADMIN_TOPIC_ARN,
@@ -46,7 +48,7 @@ export const handler: Handler = async () => {
   }
 
   const gameInfo: string = getGameInfoFromGame(nextGame);
-  const Message = `🏀 Gen-X Reminders 🏀\nHey guys! Game is on ${gameInfo}`;
+  const Message = `🏀 ${teamName} Reminders 🏀\nHey guys! Game is on ${gameInfo}`;
   const params = {
     Message,
     TopicArn: process.env.SNS_TOPIC_ARN,
