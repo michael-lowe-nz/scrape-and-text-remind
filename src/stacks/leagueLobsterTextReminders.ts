@@ -56,6 +56,7 @@ export class LeagueLobsterTextReminder extends Stack {
           environment: {
             SNS_TOPIC_ARN: teamTopic.topicArn,
             SNS_ADMIN_TOPIC_ARN: teamAdminTopic.topicArn,
+            TEAM_NAME: team.Name,
             TZ: "Pacific/Auckland",
             SCHEDULE_URL: team.ScheduleURL,
           },

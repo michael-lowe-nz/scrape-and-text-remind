@@ -33,7 +33,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "d78a4c1743cdbe897765bbfde4ebe5f12ef73254bdc57d849a906941091d26e5.zip",
+          "S3Key": "d1595baf8a912458b4710748347c4f3b50e6810fa546a802534feb9da8e47080.zip",
         },
         "Environment": {
           "Variables": {
@@ -45,6 +45,7 @@ exports[`Snapshot 1`] = `
             "SNS_TOPIC_ARN": {
               "Ref": "TestTeam2Alerts2BE53530",
             },
+            "TEAM_NAME": "Test Team 2",
             "TZ": "Pacific/Auckland",
           },
         },
@@ -233,7 +234,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "d78a4c1743cdbe897765bbfde4ebe5f12ef73254bdc57d849a906941091d26e5.zip",
+          "S3Key": "d1595baf8a912458b4710748347c4f3b50e6810fa546a802534feb9da8e47080.zip",
         },
         "Environment": {
           "Variables": {
@@ -245,6 +246,7 @@ exports[`Snapshot 1`] = `
             "SNS_TOPIC_ARN": {
               "Ref": "TestTeamAlerts58363266",
             },
+            "TEAM_NAME": "Test Team",
             "TZ": "Pacific/Auckland",
           },
         },
