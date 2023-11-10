@@ -213,13 +213,13 @@
           "exec": "yarn upgrade npm-check-updates"
         },
         {
-          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,aws-cdk,esbuild,eslint-config-prettier,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,eslint,jest,jest-junit,npm-check-updates,prettier,projen,ts-jest,ts-node,typescript,@aws-sdk/client-sns,@types/aws-lambda,@types/axios,@types/cheerio,aws-cdk-lib,axios,cdk-nag,cdk-pipelines-github,constructs,jest-html-reporters,js-yaml,moment"
+          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,aws-cdk,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,eslint,jest,jest-junit,npm-check-updates,prettier,projen,ts-jest,ts-node,typescript,@aws-sdk/client-sns,@types/aws-lambda,@types/axios,@types/cheerio,aws-cdk-lib,axios,cdk-nag,cdk-pipelines-github,constructs,jest-html-reporters,js-yaml,moment"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk esbuild eslint-config-prettier eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest jest-junit npm-check-updates prettier projen ts-jest ts-node typescript @aws-sdk/client-sns @types/aws-lambda @types/axios @types/cheerio aws-cdk-lib axios cdk-nag cdk-pipelines-github constructs jest-html-reporters js-yaml moment"
+          "exec": "yarn upgrade @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk esbuild eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest jest-junit npm-check-updates prettier projen ts-jest ts-node typescript @aws-sdk/client-sns @types/aws-lambda @types/axios @types/cheerio aws-cdk-lib axios cdk-nag cdk-pipelines-github constructs jest-html-reporters js-yaml moment"
         },
         {
           "exec": "npx projen"
