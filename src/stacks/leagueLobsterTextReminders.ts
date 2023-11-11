@@ -18,6 +18,7 @@ import { Contacts, Team } from "../types";
 
 export interface LeagueLobsterTextReminderProps extends StackProps {
   Contacts: Contacts;
+  EnvironmentName: string;
 }
 
 export class LeagueLobsterTextReminder extends Stack {
@@ -59,6 +60,7 @@ export class LeagueLobsterTextReminder extends Stack {
             TEAM_NAME: team.Name,
             TZ: "Pacific/Auckland",
             SCHEDULE_URL: team.ScheduleURL,
+            ENVIRONMENT_NAME: props.EnvironmentName,
           },
           timeout: Duration.seconds(5),
           tracing: Tracing.ACTIVE,
