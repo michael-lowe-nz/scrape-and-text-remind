@@ -45,6 +45,7 @@ if (process.env.CONTACTS_YML) {
 
 interface StageTemplateProps extends StageProps {
   contacts: Contacts;
+  environmentName: string;
 }
 
 class TextRemindersStage extends Stage {
@@ -53,6 +54,7 @@ class TextRemindersStage extends Stage {
 
     const stack = new LeagueLobsterTextReminder(this, "TextReminders", {
       Contacts: props.contacts,
+      EnvironmentName: props.environmentName,
     });
 
     Aspects.of(stack).add(new AwsSolutionsChecks({ verbose: true }));
@@ -63,16 +65,19 @@ class TextRemindersStage extends Stage {
 new TextRemindersStage(app, "dev-stage", {
   env: devEnv,
   contacts: localContacts,
+  environmentName: "Dev",
 });
 
 new TextRemindersStage(app, "test-stage", {
   env: testEnv,
   contacts: ContactData.Test,
+  environmentName: "Test",
 });
 
 new TextRemindersStage(app, "prod-stage", {
   env: prodEnv,
   contacts: prodContacts,
+  environmentName: "Production",
 });
 
 app.synth();

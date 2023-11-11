@@ -17,6 +17,12 @@ export const handler: Handler = async () => {
 
   const teamName = process.env.TEAM_NAME;
 
+  let environmentPrependMessage;
+
+  if (process.env.ENVIRONMENT_NAME !== "Production") {
+    environmentPrependMessage = `🧪${process.env.ENVIRONMENT_NAME} Environment🧪\n`;
+  }
+
   /**
    * @todo should be an environment variable
    */
@@ -30,7 +36,9 @@ export const handler: Handler = async () => {
   const nextGame: Game | null = getNextGameAfterDate(games, moment());
 
   if (!nextGame) {
-    const Message = `Ok, looks like we can't find a game for ${teamName} the coming week. You might want to check what is going on! 👀`;
+    const Message = `${
+      environmentPrependMessage || ""
+    }Ok, looks like we can't find a game for ${teamName} the coming week. You might want to check what is going on! 👀`;
     const params = {
       Message,
       TopicArn: process.env.SNS_ADMIN_TOPIC_ARN,
@@ -48,7 +56,9 @@ export const handler: Handler = async () => {
   }
 
   const gameInfo: string = getGameInfoFromGame(nextGame);
-  const Message = `🏀 ${teamName} Reminders 🏀\nHey guys! Game is on ${gameInfo}`;
+  const Message = `${
+    environmentPrependMessage || ""
+  }🏀 ${teamName} Reminders 🏀\nHey guys! Game is on ${gameInfo}`;
   const params = {
     Message,
     TopicArn: process.env.SNS_TOPIC_ARN,

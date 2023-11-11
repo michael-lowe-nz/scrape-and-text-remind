@@ -45,6 +45,7 @@ const testContacts: Contacts = {
 
 const TestProps: LeagueLobsterTextReminderProps = {
   Contacts: testContacts,
+  EnvironmentName: "Test",
 };
 
 test("Snapshot", () => {
