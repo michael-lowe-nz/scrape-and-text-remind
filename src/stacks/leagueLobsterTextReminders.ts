@@ -52,7 +52,7 @@ export class LeagueLobsterTextReminder extends Stack {
         this,
         `Alert${team.Name}Function`,
         {
-          runtime: Runtime.NODEJS_18_X,
+          runtime: Runtime.NODEJS_20_X,
           entry: "./src/processGamesForTeam/index.ts",
           environment: {
             SNS_TOPIC_ARN: teamTopic.topicArn,
