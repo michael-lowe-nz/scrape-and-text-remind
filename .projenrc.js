@@ -72,8 +72,9 @@ const project = new awscdk.AwsCdkTypeScriptApp({
       },
     },
   ],
-  autoApproveOptions: {},
-  autoApproveUpgrades: true,
+  autoMergeOptions: {
+    approvedReviews: 0,
+  },
 });
 
 project.synth();
