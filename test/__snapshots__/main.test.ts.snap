@@ -17,15 +17,7 @@ exports[`Snapshot 1`] = `
       ],
       "Metadata": {
         "cdk_nag": {
-          "rules_to_suppress": [
-            {
-              "applies_to": [
-                "Resource::*",
-              ],
-              "id": "AwsSolutions-IAM5",
-              "reason": "This wildcard might be necessary",
-            },
-          ],
+          "rules_to_suppress": [],
         },
       },
       "Properties": {
@@ -33,7 +25,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "4aa9980175f87baf29ba06b65c0a4974729f1855d1d65b545940300c524b8e08.zip",
+          "S3Key": "9b873a2f1510647d968e7c04cce1aefc0baccc186d56ca9cd6f55098980ff23b.zip",
         },
         "Environment": {
           "Variables": {
@@ -57,7 +49,7 @@ exports[`Snapshot 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 5,
         "TracingConfig": {
           "Mode": "Active",
@@ -219,15 +211,7 @@ exports[`Snapshot 1`] = `
       ],
       "Metadata": {
         "cdk_nag": {
-          "rules_to_suppress": [
-            {
-              "applies_to": [
-                "Resource::*",
-              ],
-              "id": "AwsSolutions-IAM5",
-              "reason": "This wildcard might be necessary",
-            },
-          ],
+          "rules_to_suppress": [],
         },
       },
       "Properties": {
@@ -235,7 +219,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "4aa9980175f87baf29ba06b65c0a4974729f1855d1d65b545940300c524b8e08.zip",
+          "S3Key": "9b873a2f1510647d968e7c04cce1aefc0baccc186d56ca9cd6f55098980ff23b.zip",
         },
         "Environment": {
           "Variables": {
@@ -259,7 +243,7 @@ exports[`Snapshot 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 5,
         "TracingConfig": {
           "Mode": "Active",
