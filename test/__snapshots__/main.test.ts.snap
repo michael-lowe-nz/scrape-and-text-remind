@@ -17,7 +17,15 @@ exports[`Snapshot 1`] = `
       ],
       "Metadata": {
         "cdk_nag": {
-          "rules_to_suppress": [],
+          "rules_to_suppress": [
+            {
+              "applies_to": [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
+            },
+          ],
         },
       },
       "Properties": {
@@ -211,7 +219,15 @@ exports[`Snapshot 1`] = `
       ],
       "Metadata": {
         "cdk_nag": {
-          "rules_to_suppress": [],
+          "rules_to_suppress": [
+            {
+              "applies_to": [
+                "Resource::*",
+              ],
+              "id": "AwsSolutions-IAM5",
+              "reason": "This wildcard might be necessary",
+            },
+          ],
         },
       },
       "Properties": {
