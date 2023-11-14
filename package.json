@@ -50,7 +50,7 @@
     "@types/aws-lambda": "^8.10.126",
     "@types/axios": "^0.14.0",
     "@types/cheerio": "^0.22.34",
-    "@types/js-yaml": "4.0.7",
+    "@types/js-yaml": "4.0.5",
     "aws-cdk-lib": "^2.1.0",
     "axios": "^1.6.1",
     "cdk-nag": "^2.27.190",
