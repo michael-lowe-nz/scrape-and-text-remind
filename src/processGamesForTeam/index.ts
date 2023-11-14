@@ -50,7 +50,7 @@ export const handler: Handler = async () => {
     return {
       statusCode: 200,
       body: {
-        message: "No game coming up this week",
+        message: Message,
       },
     };
   }
