@@ -25,7 +25,7 @@
     "projen": "npx projen"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.8",
+    "@types/jest": "^29.5.10",
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
@@ -47,13 +47,13 @@
   },
   "dependencies": {
     "@aws-sdk/client-sns": "^3.454.0",
-    "@types/aws-lambda": "^8.10.126",
+    "@types/aws-lambda": "^8.10.127",
     "@types/axios": "^0.14.0",
     "@types/cheerio": "^0.22.35",
     "@types/js-yaml": "4.0.5",
     "aws-cdk-lib": "^2.1.0",
     "axios": "^1.6.2",
-    "cdk-nag": "^2.27.197",
+    "cdk-nag": "^2.27.198",
     "cdk-pipelines-github": "^0.4.105",
     "cheerio": "latest",
     "constructs": "^10.0.5",
