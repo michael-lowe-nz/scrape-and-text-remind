@@ -19,6 +19,7 @@ import { Contacts, Team } from "../types";
 export interface LeagueLobsterTextReminderProps extends StackProps {
   Contacts: Contacts;
   EnvironmentName: string;
+  RunOnSchedule: boolean;
 }
 
 export class LeagueLobsterTextReminder extends Stack {
@@ -154,14 +155,17 @@ export class LeagueLobsterTextReminder extends Stack {
       // When the L2 constructs are available for the EventBridge Scheduler:
       // https://github.com/aws/aws-cdk-rfcs/blob/master/text/0474-event-bridge-scheduler-l2.md
       // will probably swap this to a scheduler implementation which includes timezone support
-      new events.Rule(this, `${team.Name}Rule`, {
-        schedule: events.Schedule.cron({
-          minute: "30",
-          hour: "8",
-          weekDay: "SUN",
-        }),
-        targets: [new targets.LambdaFunction(teamAlertFunction)],
-      });
+
+      if (props.RunOnSchedule) {
+        new events.Rule(this, `${team.Name}Rule`, {
+          schedule: events.Schedule.cron({
+            minute: "30",
+            hour: "8",
+            weekDay: "SUN",
+          }),
+          targets: [new targets.LambdaFunction(teamAlertFunction)],
+        });
+      }
 
       // Allow each function to publish to the topic
       teamTopic.grantPublish(teamAlertFunction);

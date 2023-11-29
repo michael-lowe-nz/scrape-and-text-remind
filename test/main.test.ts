@@ -46,6 +46,7 @@ const testContacts: Contacts = {
 const TestProps: LeagueLobsterTextReminderProps = {
   Contacts: testContacts,
   EnvironmentName: "Test",
+  RunOnSchedule: true,
 };
 
 test("Snapshot", () => {
@@ -71,14 +72,33 @@ test("Test that the Text reminder stack builds a lambda function to remind each 
   expect(template.resourceCountIs("AWS::Lambda::Function", 2));
 });
 
-test("Test that there are no unsupressed errors in the CDK NAG output", () => {
+test("Test that there are no unsupressed errors in the CDK NAG output for the AWS Solutions Pack", () => {
   const app = new App();
   const stack = new LeagueLobsterTextReminder(app, "test", TestProps);
   Aspects.of(stack).add(new AwsSolutionsChecks({ verbose: true }));
-  // Aspects.of(stack).add(new AwsSolutionsChecks({ verbose: true }));
   const errors = Annotations.fromStack(stack).findError(
     "*",
     Match.stringLikeRegexp("AwsSolutions-.*")
   );
   expect(errors).toHaveLength(0);
+});
+
+test("Test that if RunsOnSchedule is set to FALSE, no event bridge rule is created", () => {
+  const app = new App();
+  const stack = new LeagueLobsterTextReminder(app, "test", {
+    ...TestProps,
+    RunOnSchedule: false,
+  });
+  const template = Template.fromStack(stack);
+  expect(template.resourceCountIs("AWS::Events::Rule", 0));
+});
+
+test("Test that if RunsOnSchedule is set to TRUE, event bridge rule(s) are created", () => {
+  const app = new App();
+  const stack = new LeagueLobsterTextReminder(app, "test", {
+    ...TestProps,
+    RunOnSchedule: true,
+  });
+  const template = Template.fromStack(stack);
+  expect(template.hasResource("AWS::Events::Rule", {}));
 });
