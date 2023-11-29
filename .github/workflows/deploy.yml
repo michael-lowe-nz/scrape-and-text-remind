@@ -37,13 +37,13 @@ jobs:
         with:
           name: test-reports
           path: test-reports
-          - name: Add Test Report to Pull Request
-          if: success() || failure()
-          uses: dorny/test-reporter@v1
-          with:
-            name: Jest Unit Tests
-            path: test-reports/junit.xml
-            reporter: jest-junit
+      - name: Add Test Report to Pull Request
+        if: success() || failure()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Jest Unit Tests
+          path: test-reports/junit.xml
+          reporter: jest-junit
   test-stage-TextReminders-Deploy:
     name: Deploy teststageTextRemindersCA2DC144
     permissions:
