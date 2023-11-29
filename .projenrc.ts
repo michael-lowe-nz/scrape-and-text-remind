@@ -87,4 +87,3 @@ const project = new awscdk.AwsCdkTypeScriptApp({
 });
 
 project.synth();
-
