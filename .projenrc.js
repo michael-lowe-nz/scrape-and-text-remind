@@ -72,6 +72,16 @@ const project = new awscdk.AwsCdkTypeScriptApp({
         path: "cdk.out/",
       },
     },
+    {
+      name: "Add Test Report to Pull Request",
+      uses: "dorny/test-reporter@v1",
+      if: "success() || failure()",
+      with: {
+        name: "Jest Unit Tests",
+        path: "test-reports/junit.xml",
+        reporter: "jest-junit",
+      }
+    }
   ],
   autoMergeOptions: {
     approvedReviews: 0,

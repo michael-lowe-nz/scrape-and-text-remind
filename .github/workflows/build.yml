@@ -33,6 +33,13 @@ jobs:
         with:
           name: test-reports
           path: cdk.out/
+      - name: Add Test Report to Pull Request
+        if: success() || failure()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Jest Unit Tests
+          path: test-reports/junit.xml
+          reporter: jest-junit
       - name: Find mutations
         id: self_mutation
         run: |-
