@@ -1,5 +1,9 @@
-const { awscdk } = require("projen");
-const { UpgradeDependenciesSchedule } = require("projen/lib/javascript");
+import { awscdk } from "projen";
+import {
+  JestReporter,
+  UpgradeDependenciesSchedule,
+} from "projen/lib/javascript";
+
 const project = new awscdk.AwsCdkTypeScriptApp({
   cdkVersion: "2.1.0",
   defaultReleaseBranch: "main",
@@ -26,15 +30,11 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     preserveDefaultReporters: true,
     jestConfig: {
       reporters: [
-        "default",
-        [
-          "jest-html-reporters",
-          {
-            publicPath: "./test-reports",
-            inlineSource: true,
-          },
-        ],
-        "github-actions",
+        new JestReporter("jest-html-reporters", {
+          publicPath: "./test-reports",
+          inlineSource: true,
+        }),
+        new JestReporter("github-actions"),
       ],
     },
   },
@@ -42,7 +42,9 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   packageName:
     "league-lobster-text-reminders" /* The "name" in package.json. */,
   lambdaOptions: {
-    externals: ["@aws-cdk/client-sns"],
+    bundlingOptions: {
+      externals: ["@aws-cdk/client-sns"],
+    },
   },
   githubOptions: {
     pullRequestLint: false,
@@ -80,8 +82,8 @@ const project = new awscdk.AwsCdkTypeScriptApp({
         name: "Jest Unit Tests",
         path: "test-reports/junit.xml",
         reporter: "jest-junit",
-      }
-    }
+      },
+    },
   ],
   autoMergeOptions: {
     approvedReviews: 0,
@@ -91,6 +93,14 @@ const project = new awscdk.AwsCdkTypeScriptApp({
       schedule: UpgradeDependenciesSchedule.expressions(["0 0 * * 2,4,6"]),
     },
   },
+  projenrcTs: true,
 });
 
+// project.buildWorkflow?.addPostBuildJobCommands
+
 project.synth();
+
+// permissions: {
+//   pullRequests: github.workflows.AppPermission.WRITE,
+//   contents: github.workflows.AppPermission.WRITE,
+// }
