@@ -45,7 +45,7 @@ jobs:
           path: test-reports/junit.xml
           reporter: jest-junit
   test-stage-TextReminders-Deploy:
-    name: Deploy teststageTextRemindersCA2DC144
+    name: Deploy to Test
     permissions:
       contents: read
       id-token: write
@@ -78,7 +78,7 @@ jobs:
       - name: CDK deploy
         run: npx cdk deploy --app "cdk.out" --require-approval never "test-stage/*"
   prod-stage-TextReminders-Deploy:
-    name: Deploy prodstageTextReminders32176EAB
+    name: Deploy to Prod
     permissions:
       contents: read
       id-token: write
