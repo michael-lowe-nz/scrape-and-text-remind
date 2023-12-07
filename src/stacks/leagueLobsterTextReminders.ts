@@ -73,7 +73,6 @@ export class LeagueLobsterTextReminder extends Stack {
       );
 
       if (index === 0) {
-        console.log("INdex", index, this.stackName);
         this.testFunction = teamAlertFunction;
       }
 
