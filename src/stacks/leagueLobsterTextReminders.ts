@@ -8,7 +8,7 @@ import {
   ServicePrincipal,
 } from "aws-cdk-lib/aws-iam";
 import { Alias } from "aws-cdk-lib/aws-kms";
-import { Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
+import { IFunction, Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { SmsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
@@ -23,6 +23,7 @@ export interface LeagueLobsterTextReminderProps extends StackProps {
 }
 
 export class LeagueLobsterTextReminder extends Stack {
+  public testFunction: IFunction | null;
   constructor(
     scope: Construct,
     id: string,
@@ -32,7 +33,9 @@ export class LeagueLobsterTextReminder extends Stack {
 
     const snsKey = Alias.fromAliasName(this, "aws-sns-key", "alias/aws/sns");
 
-    props.Contacts.Teams.forEach((team: Team) => {
+    this.testFunction = null;
+
+    props.Contacts.Teams.forEach((team: Team, index: number) => {
       const teamTopic = new Topic(this, `${team.Name}Alerts`, {
         masterKey: snsKey,
       });
@@ -68,6 +71,11 @@ export class LeagueLobsterTextReminder extends Stack {
           role: teamAlertFunctionRole,
         }
       );
+
+      if (index === 0) {
+        console.log("INdex", index, this.stackName);
+        this.testFunction = teamAlertFunction;
+      }
 
       const basicLambdaPolicy = new Policy(this, `Alert${team.Name}Policy`, {
         statements: [

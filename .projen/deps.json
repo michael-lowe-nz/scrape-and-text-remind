@@ -96,7 +96,6 @@
     },
     {
       "name": "@types/js-yaml",
-      "version": "4.0.5",
       "type": "runtime"
     },
     {
