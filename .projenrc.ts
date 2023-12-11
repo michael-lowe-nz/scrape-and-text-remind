@@ -12,7 +12,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   eslint: true,
   prettier: true,
   deps: [
-    "@types/js-yaml@4.0.5",
+    "@types/js-yaml",
     "js-yaml",
     "@aws-sdk/client-sns",
     "cdk-pipelines-github",
