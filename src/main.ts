@@ -6,6 +6,7 @@ import { load } from "js-yaml";
 import ContactData from "./contacts";
 import { LeagueLobsterTextReminder } from "./stacks/leagueLobsterTextReminders";
 import { OIDCSetup } from "./stacks/oidcSetup";
+import { TestStack } from "./stacks/testStack";
 import { Contacts } from "./types";
 
 const testEnv = {
@@ -47,6 +48,7 @@ interface StageTemplateProps extends StageProps {
   contacts: Contacts;
   environmentName: string;
   runOnSchedule: boolean;
+  runTestsOnDeploy: boolean;
 }
 
 class TextRemindersStage extends Stage {
@@ -59,6 +61,12 @@ class TextRemindersStage extends Stage {
       RunOnSchedule: props.runOnSchedule,
     });
 
+    if (props.runTestsOnDeploy) {
+      new TestStack(this, "TestStack", {
+        RemindLambdaFunction: stack.testFunction,
+      });
+    }
+
     Aspects.of(stack).add(new AwsSolutionsChecks({ verbose: true }));
     Aspects.of(app).add(new HIPAASecurityChecks({ verbose: true }));
   }
@@ -69,6 +77,7 @@ new TextRemindersStage(app, "dev-stage", {
   contacts: localContacts,
   environmentName: "Dev",
   runOnSchedule: false,
+  runTestsOnDeploy: false,
 });
 
 new TextRemindersStage(app, "test-stage", {
@@ -76,6 +85,7 @@ new TextRemindersStage(app, "test-stage", {
   contacts: ContactData.Test,
   environmentName: "Test",
   runOnSchedule: false,
+  runTestsOnDeploy: true,
 });
 
 new TextRemindersStage(app, "prod-stage", {
@@ -83,6 +93,7 @@ new TextRemindersStage(app, "prod-stage", {
   contacts: prodContacts,
   environmentName: "Production",
   runOnSchedule: true,
+  runTestsOnDeploy: false,
 });
 
 app.synth();
