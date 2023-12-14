@@ -85,14 +85,14 @@
     "@aws-sdk/util-utf8-browser" "^3.0.0"
     tslib "^1.11.1"
 
-"@aws-sdk/client-sns@^3.470.0":
-  version "3.470.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sns/-/client-sns-3.470.0.tgz#11374b17dcad8a1fb14a4f2ea11a918ed419280f"
-  integrity sha512-gsg/Vtdu5Zm0R/zKyQjJU4MPA0iIp2BxKONQUwfwPhNX/vE7J+LgAq0opz6ERRjzK1jKrP3nUX9BOvddpT5kUw==
+"@aws-sdk/client-sns@^3.473.0":
+  version "3.473.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sns/-/client-sns-3.473.0.tgz#96f1bcdc124475423c4d0b2290009bb0dfed7651"
+  integrity sha512-qqCSm8wRtfx8/Dm5LHMF18l/Lf+KySeuOxMlqalUpl1LceWORWTqfIIXqt6Kl7Vunx2JcLn+K7rU2nzK9X1mvw==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.470.0"
+    "@aws-sdk/client-sts" "3.473.0"
     "@aws-sdk/core" "3.468.0"
     "@aws-sdk/credential-provider-node" "3.470.0"
     "@aws-sdk/middleware-host-header" "3.468.0"
@@ -173,10 +173,10 @@
     "@smithy/util-utf8" "^2.0.2"
     tslib "^2.5.0"
 
-"@aws-sdk/client-sts@3.470.0":
-  version "3.470.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.470.0.tgz#f161d087564f9e545fbcd199c7197ec0cfce29b9"
-  integrity sha512-TP3A4t8FoFEQinm6axxduTUnlMMLpmLi4Sf00JTI2CszxLUFh/JyUhYQ5gSOoXgPFmfwVXUNKCtmR3jdP0ZGPw==
+"@aws-sdk/client-sts@3.473.0":
+  version "3.473.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.473.0.tgz#413aaa82e30b6bd49d783f85af95357a89d2a792"
+  integrity sha512-ttRZs+sW96cpuoVdys4KZ81yXq4c6xyhGOZIRUpi/YiwB1gnNvCEo5CDFL7PSdW/bjI2ovyUgu8EArq+7KlLwA==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
@@ -2227,19 +2227,19 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001565:
-  version "1.0.30001568"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001568.tgz#53fa9297273c9a977a560663f48cbea1767518b7"
-  integrity sha512-vSUkH84HontZJ88MiNrOau1EBrCqEQYgkC5gIySiDlpsm8sGVrhU7Kx4V6h0tnqaHzIHZv08HlJIwPbL4XL9+A==
+  version "1.0.30001570"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001570.tgz#b4e5c1fa786f733ab78fc70f592df6b3f23244ca"
+  integrity sha512-+3e0ASu4sw1SWaoCtvPeyXp+5PsjigkSt8OXZbF9StH5pQWbxEjLAZE3n8Aup5udop1uRiKA7a4utUk/uoSpUw==
 
 case@1.6.3, case@^1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdk-nag@^2.27.214:
-  version "2.27.214"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.27.214.tgz#00c2d9df6b185e7d087bce702d4d607f5b8a7e60"
-  integrity sha512-9AVmKeK8BBdrs2OWo0x4uN9xmvHZGLFbuiPF+V4QlYz9QiIT6TOp1lwyR/IyfevrwV8JhRwW1MQB2P1iqHknTQ==
+cdk-nag@^2.27.216:
+  version "2.27.216"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.27.216.tgz#ebd131967e229dd47a74f2b971009a8715e8e175"
+  integrity sha512-2+sRIslVWJjr9wntMXC/MOOGOsSrwIL+fF5f2G6j1ca4F+gLF2jwsNQGrGSeBoomQ7uM8MJr08vKTKix7q4fWA==
 
 cdk-pipelines-github@^0.4.106:
   version "0.4.106"
@@ -2565,9 +2565,9 @@ domutils@^3.0.1:
     domhandler "^5.0.3"
 
 electron-to-chromium@^1.4.601:
-  version "1.4.610"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.610.tgz#e17b22203f4aa2e1ed77759c720546d95a51186f"
-  integrity sha512-mqi2oL1mfeHYtOdCxbPQYV/PL7YrQlxbvFEZ0Ee8GbDdShimqt2/S6z2RWqysuvlwdOrQdqvE0KZrBTipAeJzg==
+  version "1.4.612"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.612.tgz#350c6fd4201d677307519b931949fa64dae6a5cc"
+  integrity sha512-dM8BMtXtlH237ecSMnYdYuCkib2QHq0kpWfUnavjdYsyr/6OsAwg5ZGUfnQ9KD1Ga4QgB2sqXlB2NT8zy2GnVg==
 
 emittery@^0.13.1:
   version "0.13.1"

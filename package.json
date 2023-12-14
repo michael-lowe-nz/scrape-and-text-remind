@@ -45,14 +45,14 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@aws-sdk/client-sns": "^3.470.0",
+    "@aws-sdk/client-sns": "^3.473.0",
     "@types/aws-lambda": "^8.10.130",
     "@types/axios": "^0.14.0",
     "@types/cheerio": "^0.22.35",
     "@types/js-yaml": "4.0.9",
     "aws-cdk-lib": "^2.1.0",
     "axios": "^1.6.2",
-    "cdk-nag": "^2.27.214",
+    "cdk-nag": "^2.27.216",
     "cdk-pipelines-github": "^0.4.106",
     "cheerio": "latest",
     "constructs": "^10.0.5",
