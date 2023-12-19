@@ -70,7 +70,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
       name: "Upload CDK Nag Report",
       uses: "actions/upload-artifact@v4",
       with: {
-        name: "test-reports",
+        name: "cdk-nag-report",
         path: "cdk.out/",
       },
     },
