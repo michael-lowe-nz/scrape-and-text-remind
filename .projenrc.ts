@@ -60,7 +60,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   postBuildSteps: [
     {
       name: "Upload Test Reports",
-      uses: "actions/upload-artifact@v3",
+      uses: "actions/upload-artifact@v4",
       with: {
         name: "test-reports",
         path: "test-reports",
@@ -68,7 +68,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     },
     {
       name: "Upload CDK Nag Report",
-      uses: "actions/upload-artifact@v3",
+      uses: "actions/upload-artifact@v4",
       with: {
         name: "test-reports",
         path: "cdk.out/",
