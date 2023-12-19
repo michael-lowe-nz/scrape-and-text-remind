@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+      - chore/workflow-names
   workflow_dispatch: {}
 jobs:
   Build-Test:
@@ -28,12 +29,12 @@ jobs:
           yarn
           yarn build
       - name: Upload cdk.out
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cdk.out
           path: cdk.out
       - name: Upload Test Reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-reports
           path: test-reports
@@ -77,6 +78,26 @@ jobs:
           yarn
       - name: CDK deploy
         run: npx cdk deploy --app "cdk.out" --require-approval never "test-stage/*"
+  qa-approval:
+    name: "QA Engineer's Approval"
+    environment: QA Approval
+    needs:
+      - Build-Test
+      - test-stage-TextReminders-Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: QA Approval
+        run: echo "Waiting on QA approval"
+  change-approval:
+    name: "Change Control Officer's Approval"
+    environment: Change Approval
+    needs:
+      - Build-Test
+      - test-stage-TextReminders-Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: QA Approval
+        run: echo "Waiting on Change approval"
   prod-stage-TextReminders-Deploy:
     name: Deploy to Prod
     permissions:
@@ -86,6 +107,8 @@ jobs:
     needs:
       - Build-Test
       - test-stage-TextReminders-Deploy
+      - change-approval
+      - qa-approval
     runs-on: ubuntu-latest
     steps:
       - name: checkout
