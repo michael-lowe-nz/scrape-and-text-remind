@@ -45,7 +45,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@aws-sdk/client-sns": "^3.477.0",
+    "@aws-sdk/client-sns": "^3.478.0",
     "@types/aws-lambda": "^8.10.130",
     "@types/axios": "^0.14.0",
     "@types/cheerio": "^0.22.35",
@@ -56,7 +56,7 @@
     "cdk-pipelines-github": "^0.4.106",
     "cheerio": "latest",
     "constructs": "^10.0.5",
-    "jest-html-reporters": "^3.1.5",
+    "jest-html-reporters": "^3.1.6",
     "js-yaml": "^4.1.0",
     "moment": "^2.29.4"
   },
