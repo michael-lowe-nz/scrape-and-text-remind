@@ -25,7 +25,7 @@
     "projen": "npx projen"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.11",
+    "@types/jest": "^29.5.12",
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
@@ -53,7 +53,7 @@
     "aws-cdk-lib": "^2.1.0",
     "axios": "^1.6.7",
     "cdk-nag": "^2.28.27",
-    "cdk-pipelines-github": "^0.4.107",
+    "cdk-pipelines-github": "^0.4.108",
     "cheerio": "latest",
     "constructs": "^10.0.5",
     "jest-html-reporters": "^3.1.7",
