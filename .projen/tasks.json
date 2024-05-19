@@ -211,7 +211,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,prettier,projen,ts-jest,ts-node,typescript,@aws-sdk/client-sns,@types/aws-lambda,@types/axios,@types/cheerio,@types/js-yaml,axios,cdk-nag,cdk-pipelines-github,cheerio,jest-html-reporters,js-yaml,moment"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,prettier,projen,ts-jest,ts-node,typescript,@aws-sdk/client-sns,@types/aws-lambda,@types/axios,@types/cheerio,@types/js-yaml,axios,cdk-nag,cdk-pipelines-github,jest-html-reporters,js-yaml,moment"
         },
         {
           "exec": "yarn install --check-files"
