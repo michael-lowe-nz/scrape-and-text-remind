@@ -85,7 +85,7 @@ export class LeagueLobsterTextReminder extends Stack {
               "logs:PutLogEvents",
             ],
             resources: [
-              `arn:aws:logs:${this.region}:${this.account}:log-group:${teamAlertFunction.functionName}:*`,
+              `arn:aws:logs:${this.region}:${this.account}:log-group:/aws/lambda/${teamAlertFunction.functionName}:*`,
             ],
           }),
         ],

@@ -191,7 +191,7 @@ exports[`Snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":log-group:",
+                    ":log-group:/aws/lambda/",
                     {
                       "Ref": "AlertTestTeam2Function6D2517FA",
                     },
@@ -393,7 +393,7 @@ exports[`Snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":log-group:",
+                    ":log-group:/aws/lambda/",
                     {
                       "Ref": "AlertTestTeamFunction3257EF79",
                     },
