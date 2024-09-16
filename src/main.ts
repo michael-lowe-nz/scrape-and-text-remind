@@ -77,7 +77,7 @@ new TextRemindersStage(app, "dev-stage", {
   contacts: localContacts,
   environmentName: "Dev",
   runOnSchedule: false,
-  runTestsOnDeploy: false,
+  runTestsOnDeploy: true,
 });
 
 new TextRemindersStage(app, "test-stage", {
