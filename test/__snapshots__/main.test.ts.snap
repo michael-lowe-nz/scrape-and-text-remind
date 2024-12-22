@@ -33,7 +33,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "04074d9cbbe44471531a2f3c3ad2d86067290e64d5c4e9c35cdb338485a0350e.zip",
+          "S3Key": "5d2624071d4cf6dc9c679bb6755ea1af6aa5720729f6ae039bd5b6b7a0891339.zip",
         },
         "Environment": {
           "Variables": {
@@ -56,7 +56,7 @@ exports[`Snapshot 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs20.x",
+        "Runtime": "nodejs22.x",
         "Timeout": 5,
         "TracingConfig": {
           "Mode": "Active",
@@ -234,7 +234,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "04074d9cbbe44471531a2f3c3ad2d86067290e64d5c4e9c35cdb338485a0350e.zip",
+          "S3Key": "5d2624071d4cf6dc9c679bb6755ea1af6aa5720729f6ae039bd5b6b7a0891339.zip",
         },
         "Environment": {
           "Variables": {
@@ -257,7 +257,7 @@ exports[`Snapshot 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs20.x",
+        "Runtime": "nodejs22.x",
         "Timeout": 5,
         "TracingConfig": {
           "Mode": "Active",
