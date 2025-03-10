@@ -51,7 +51,7 @@
     "@types/cheerio": "^0.22.35",
     "@types/js-yaml": "4.0.9",
     "aws-cdk-lib": "^2.1.0",
-    "axios": "^1.7.9",
+    "axios": "^1.8.2",
     "cdk-nag": "^2.34.23",
     "cdk-pipelines-github": "^0.4.127",
     "cheerio": "0.22.0",
