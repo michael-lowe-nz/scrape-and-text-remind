@@ -16,7 +16,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     "js-yaml",
     "@aws-sdk/client-sns",
     "cdk-pipelines-github",
-    "cheerio@0.22.0",
+    "cheerio@^1.1.2",
     "@types/cheerio",
     "@types/axios",
     "@types/aws-lambda",

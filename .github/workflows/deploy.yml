@@ -61,7 +61,7 @@ jobs:
           aws-region: ap-southeast-2
           role-duration-seconds: 1800
           role-skip-session-tagging: true
-          role-to-assume: arn:aws:iam::746512892315:role/GitHubActionRole
+          role-to-assume: arn:aws:iam::365979456435:role/GitHubActionRole
       - name: Download cdk.out
         uses: actions/download-artifact@v4
         with:

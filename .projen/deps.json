@@ -116,7 +116,7 @@
     },
     {
       "name": "cheerio",
-      "version": "0.22.0",
+      "version": "^1.1.2",
       "type": "runtime"
     },
     {

@@ -54,7 +54,7 @@
     "axios": "^1.12.2",
     "cdk-nag": "^2.37.55",
     "cdk-pipelines-github": "^0.4.132",
-    "cheerio": "0.22.0",
+    "cheerio": "^1.1.2",
     "constructs": "^10.0.5",
     "jest-html-reporters": "^3.1.7",
     "js-yaml": "^4.1.0",
