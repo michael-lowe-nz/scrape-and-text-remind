@@ -43,25 +43,6 @@ jobs:
           name: Jest Unit Tests
           path: test-reports/junit.xml
           reporter: jest-junit
-  qa-approval:
-    name: "QA Engineer's Approval"
-    environment: QA Approval
-    needs:
-      - Build-Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: QA Approval
-        run: echo "Waiting on QA approval"
-  change-approval:
-    name: "Change Control Officer's Approval"
-    environment: Change Approval
-    needs:
-      - Build-Test
-      - test-stage-TextReminders-Deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: QA Approval
-        run: echo "Waiting on Change approval"
   prod-stage-TextReminders-Deploy:
     name: Deploy to Prod
     permissions:
