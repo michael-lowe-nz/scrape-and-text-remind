@@ -93,12 +93,39 @@
         }
       ]
     },
+    "diagram": {
+      "name": "diagram",
+      "description": "Generate architecture diagram from Mermaid",
+      "steps": [
+        {
+          "exec": "mmdc -i architecture-diagram.md -o docs/architecture-diagram.png -t dark -b transparent"
+        }
+      ]
+    },
+    "diagram:svg": {
+      "name": "diagram:svg",
+      "description": "Generate architecture diagram as SVG",
+      "steps": [
+        {
+          "exec": "mmdc -i architecture-diagram.md -o docs/architecture-diagram.svg -t dark -b transparent"
+        }
+      ]
+    },
     "diff": {
       "name": "diff",
       "description": "Diffs the currently deployed app against your code",
       "steps": [
         {
           "exec": "cdk diff"
+        }
+      ]
+    },
+    "docs": {
+      "name": "docs",
+      "description": "Generate all documentation diagrams",
+      "steps": [
+        {
+          "exec": "mkdir -p docs && npm run diagram && npm run diagram:svg"
         }
       ]
     },
@@ -215,13 +242,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,prettier,projen,ts-jest,ts-node,typescript,@aws-sdk/client-sns,@types/aws-lambda,@types/axios,@types/cheerio,@types/js-yaml,axios,cdk-nag,cdk-pipelines-github,jest-html-reporters,js-yaml,moment"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@mermaid-js/mermaid-cli,@types/jest,@types/node,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,prettier,projen,ts-jest,ts-node,typescript,@aws-sdk/client-sns,@types/aws-lambda,@types/axios,@types/cheerio,@types/js-yaml,axios,cdk-nag,cdk-pipelines-github,jest-html-reporters,js-yaml,moment"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk esbuild eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest jest-junit prettier projen ts-jest ts-node typescript @aws-sdk/client-sns @types/aws-lambda @types/axios @types/cheerio @types/js-yaml aws-cdk-lib axios cdk-nag cdk-pipelines-github cheerio constructs jest-html-reporters js-yaml moment"
+          "exec": "yarn upgrade @mermaid-js/mermaid-cli @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk esbuild eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest jest-junit prettier projen ts-jest ts-node typescript @aws-sdk/client-sns @types/aws-lambda @types/axios @types/cheerio @types/js-yaml aws-cdk-lib axios cdk-nag cdk-pipelines-github cheerio constructs jest-html-reporters js-yaml moment"
         },
         {
           "exec": "npx projen"

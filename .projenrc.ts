@@ -38,7 +38,9 @@ const project = new awscdk.AwsCdkTypeScriptApp({
       ],
     },
   },
-  devDeps: [] /* Build dependencies for this module. */,
+  devDeps: [
+    "@mermaid-js/mermaid-cli",
+  ] /* Build dependencies for this module. */,
   packageName:
     "league-lobster-text-reminders" /* The "name" in package.json. */,
   lambdaOptions: {
@@ -84,6 +86,22 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     },
   },
   projenrcTs: true,
+});
+
+// Add custom tasks for generating architecture diagrams
+project.addTask("diagram", {
+  description: "Generate architecture diagram from Mermaid",
+  exec: "mmdc -i architecture-diagram.md -o docs/architecture-diagram.png -t dark -b transparent",
+});
+
+project.addTask("diagram:svg", {
+  description: "Generate architecture diagram as SVG",
+  exec: "mmdc -i architecture-diagram.md -o docs/architecture-diagram.svg -t dark -b transparent",
+});
+
+project.addTask("docs", {
+  description: "Generate all documentation diagrams",
+  exec: "mkdir -p docs && npm run diagram && npm run diagram:svg",
 });
 
 project.synth();

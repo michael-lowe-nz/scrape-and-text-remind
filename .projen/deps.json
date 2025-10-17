@@ -1,6 +1,10 @@
 {
   "dependencies": [
     {
+      "name": "@mermaid-js/mermaid-cli",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },
