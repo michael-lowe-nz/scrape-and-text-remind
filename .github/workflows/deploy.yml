@@ -16,7 +16,6 @@ jobs:
       id-token: write
       checks: write
     runs-on: ubuntu-latest
-    needs: []
     env:
       CONTACTS_YML: ${{ vars.CONTACTS_YML }}
       TEST_PHONE_NUMBER: ${{ vars.TEST_PHONE_NUMBER }}
@@ -49,7 +48,6 @@ jobs:
     environment: QA Approval
     needs:
       - Build-Test
-      - test-stage-TextReminders-Deploy
     runs-on: ubuntu-latest
     steps:
       - name: QA Approval
